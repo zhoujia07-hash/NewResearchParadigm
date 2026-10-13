@@ -10,6 +10,7 @@ from batch_ui import render_batch
 from agents_ui import render_agents
 from study_ui import render_builder, render_participant
 from web_simulation import CHOICES, Simulation
+from showcase_ui import render_showcase
 
 st.set_page_config(page_title='New Research Paradigm', layout='wide')
 st.markdown('''<style>
@@ -17,7 +18,8 @@ st.markdown('''<style>
 h1,h2,h3 {font-family:Georgia,serif;}
 .pipeline {background:#eff3f7;border-left:4px solid #506880;padding:14px 20px;margin:16px 0;}
 </style>''', unsafe_allow_html=True)
-if st.session_state.get('participant_session') is None:
+st.session_state.setdefault('experience','Showcase Mode')
+if st.session_state.get('participant_session') is None and st.session_state.experience!='Showcase Mode':
     st.title('New Research Paradigm')
     st.markdown('**AI High-Throughput Simulation + Human Long-Tail Intervention**')
     st.markdown('<div class="pipeline">AI Sandbox → Triage → Human Takeover → Hybrid Decision</div>',
@@ -191,9 +193,14 @@ def dashboard():
 
 if st.session_state.get('participant_session') is not None:
     render_participant(floor_plan)
+elif st.session_state.experience=='Showcase Mode':
+    render_showcase()
 else:
-    workspace = st.sidebar.radio('Workspace', ['Five-round demo', 'Research instrument', 'High-throughput sandbox', 'Multi-agent comparison', 'Human Study Builder'], key='workspace')
-    if workspace == 'Five-round demo':
+    workspace = st.sidebar.radio('Workspace', ['Showcase Mode', 'Five-round demo', 'Research instrument', 'High-throughput sandbox', 'Multi-agent comparison', 'Human Study Builder'], key='workspace')
+    if workspace == 'Showcase Mode':
+        st.session_state.experience='Showcase Mode'
+        st.rerun()
+    elif workspace == 'Five-round demo':
         dashboard()
     elif workspace == 'Research instrument':
         render_research(floor_plan)

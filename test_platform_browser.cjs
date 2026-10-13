@@ -10,12 +10,13 @@ const assert=require('assert/strict');
  async function shot(name,heading){
   await page.waitForTimeout(1000);
   await page.getByRole('heading',{name:heading,exact:true}).evaluate(e=>e.scrollIntoView({block:'start'}));
-  await page.screenshot({path:path.join(__dirname,'screenshots',name),fullPage:true});
+  if(process.env.UPDATE_SCREENSHOTS!=='0') await page.screenshot({path:path.join(__dirname,'screenshots',name),fullPage:true});
  }
  async function download(label,name){
   const promise=page.waitForEvent('download');await page.getByRole('button',{name:label,exact:true}).click();
   await (await promise).saveAs('/tmp/'+name);return fs.readFileSync('/tmp/'+name,'utf8');
  }
+ await page.getByRole('button',{name:'Open Research Instrument',exact:true}).click();
  await page.getByText('High-throughput sandbox',{exact:true}).click();
  await page.getByRole('button',{name:'Generate Batch',exact:true}).click();
  await page.getByRole('heading',{name:'Head → Uncertain → Long Tail',exact:true}).waitFor();

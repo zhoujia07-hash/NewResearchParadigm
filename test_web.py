@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parent
 class WebWorkflowTests(unittest.TestCase):
     def start(self):
         at = AppTest.from_file(str(ROOT / 'app.py')).run()
+        at.button(key='open_research').click().run()
+        at.sidebar.radio(key='workspace').set_value('Five-round demo').run()
         self.assertEqual(len(at.exception), 0)
         return at
 
@@ -214,6 +216,7 @@ class ResearchModelTests(unittest.TestCase):
 class ResearchUITests(unittest.TestCase):
     def start(self):
         at = AppTest.from_file(str(ROOT/'app.py')).run()
+        at.button(key='open_research').click().run()
         at.sidebar.radio(key='workspace').set_value('Research instrument').run()
         self.assertEqual(len(at.exception),0)
         return at

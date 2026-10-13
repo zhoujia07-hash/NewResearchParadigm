@@ -3,3 +3,7 @@ __pycache__/
 .venv/
 hybrid_demo_report.json
 data/
+.env
+.env.*
+.streamlit/secrets.toml
+artifacts/showcase-frames/

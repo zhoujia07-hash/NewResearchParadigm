@@ -1,5 +1,18 @@
 # New Research Paradigm
 
+**Public Showcase → experience the paradigm.** The default landing page is a
+minimal guided story: ordinary cases → emerging risk → automatic pause → your
+judgment → hybrid recovery. No researcher sliders, sign-in or API key are needed.
+
+**Research Instrument → inspect and configure the paradigm.** Click **Open
+Research Instrument** for the preserved Milestone 1–6 workflows. Leaving an
+active story pauses it, so returning does not jump ahead. Milestone 7 has **not**
+been started.
+
+Public deployment is prepared but **not yet published**. No Live Demo URL is
+claimed; the exact Streamlit Community Cloud deployment action is below.
+
+
 **AI High-Throughput Simulation + Human Long-Tail Intervention**
 
 A runnable HCI research instrument for exploring **when AI should stop acting
@@ -42,8 +55,9 @@ human participants, and Hybrid > Human is not claimed.
 `python -m pip install -r requirements.txt`, then `streamlit run app.py`.
 All deterministic, study and no-key mock workflows remain available with this
 base installation. Optionally install `requirements-agents.txt` for Concordia.
-The sidebar selects the five workspaces; participant pilots hide researcher
-controls. Formal participant deployments are outside the validated scope.
+Showcase opens without a sidebar. Open Research Instrument reveals the five
+research workspaces and a route back to Showcase; participant pilots hide
+researcher controls. Formal participant deployments are outside the validated scope.
 
 
 A deterministic research demo of AI throughput with selective human takeover.
@@ -63,11 +77,10 @@ python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
-In the prepared cloud machine the environment already exists:
+From the repository root, activate your prepared virtual environment:
 
 ```bash
-cd /workspace/NewResearchParadigm
-source /workspace/.venvs/newresearch/bin/activate
+source .venv/bin/activate
 streamlit run app.py
 ```
 
@@ -502,3 +515,103 @@ spatial-decision space, deterministically triages ordinary and long-tail cases,
 exposes structured agent disagreements, and turns selected tails into anonymous
 human-in-the-loop pilot trials—while keeping simulation evidence separate from
 future human empirical evidence.
+
+## Public Showcase
+
+Start the **60-second Demo** to watch eight green virtual occupants move.
+R06 gradually loses confidence and turns amber while automation continues.
+The validated blocked-exit crisis turns R06 red and freezes the sandbox.
+The story timer stops for your A/B/C decision and confidence; it never times out.
+Your choice resumes the story: A reaches West Exit, B remains unsafe, C waits at refuge.
+A final 40/39/1 report compares the scripted AI recommendation, your judgment and hybrid outcome.
+
+The narrative has 55 seconds of active story time plus your response time, so a
+brief response produces approximately a 60-second demo. Normal operation runs
+0–12s, emerging risk 12–25s, crisis 25–35s, human judgment pauses at 35s, recovery
+runs 35–45s after submission, then the report is held for the final ten seconds.
+The report remains available afterward. You can pause/resume, reset, or skip
+straight to takeover. Skip still evaluates all five core rounds by completion;
+counts are actual outputs of the preserved `Simulation` state, not invented UI
+numbers. Intermediate deterioration is a narrative monitoring cue; it does not
+replace the validated threshold rule or add observations to the five-round tally.
+
+The map uses lightweight SVG interpolation and animated route traces. Occupants
+and route animation stop while paused. Reduced-motion preferences disable smooth
+interpolation and route animation while preserving logical stage progression.
+Frozen observations stay fixed through confidence changes and long decision
+waits. The crisis comes from the original R06 injection and triage implementation.
+
+**Public-session boundary:** this workspace calls no LLM/provider, participant
+store, database, export writer or authentication service. Viewer choices exist
+only in that browser's Streamlit session; Reset/reload creates a clean story.
+No participant IDs or durable study logs are generated. Research/pilot tools are
+separate, explicitly selected prototype workflows; do not use this public
+showcase as a formal participant-study collection endpoint. Static filesystem
+serving and framework usage telemetry are disabled. Credentials are never shown.
+
+**97.5% is a scripted prototype result, not a real-world automation estimate.**
+**Human-alone and Hybrid performance require empirical validation.** B/C are not
+forced into a safe ending: B displays an unsafe blocked approach; C displays
+pending staff assistance and unconfirmed evacuation.
+
+![Showcase normal operation](screenshots/15-showcase-normal.png)
+
+![Showcase emerging risk](screenshots/16-showcase-risk-emerging.png)
+
+![Showcase human takeover](screenshots/17-showcase-takeover.png)
+
+![Showcase collaboration result](screenshots/18-showcase-final.png)
+
+[Watch/download the approximately 61-second browser recording](artifacts/showcase-demo.webm).
+This records the real wall-clock A/85 browser workflow using browser frames and
+FFmpeg. It is a fictional demonstration, not a human-participant recording.
+Native Playwright video was unavailable; the tested FFmpeg fallback was used.
+
+### Streamlit Community Cloud deployment
+
+The deployment entry point is **app.py** on **main** in
+**zhoujia07-hash/NewResearchParadigm**. Choose **Python 3.12**. Community Cloud
+installs `requirements.txt`; `requirements-agents.txt` remains optional and is
+not needed for the public showcase. No API keys, private secrets, Redis, Docker,
+Concordia installation or real LLM calls are required. Default landing and engine
+are Showcase / deterministic. The cloud manages the server port/address; the
+repository configuration does not pin a loopback host or a fixed port.
+
+**Single manual deployment action:** log in to
+[Streamlit Community Cloud](https://share.streamlit.io), create a new app, select
+`zhoujia07-hash/NewResearchParadigm` → `main` → `app.py`, choose Python 3.12 in
+advanced settings, and click **Deploy**. For public visitors, keep app sharing
+public when the account/repository permissions allow it. No secrets need to be
+entered. After a successful deployment, use its actual generated public URL and
+place it near the top of this README; do not infer or invent a subdomain.
+
+Automatic deployment was not performed: this cloud environment's outbound proxy
+returned 403 for `share.streamlit.io` and `docs.streamlit.io`, and there is no
+available authenticated Community Cloud deployment session/tool. All engineering
+and local verification are complete; no publicly accessible live URL has yet
+been verified. The official deployment guide is
+[Deploy your app](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app).
+
+### Showcase verification
+
+```bash
+python -m unittest discover -v
+node test_showcase_browser.cjs
+UPDATE_SCREENSHOTS=0 node test_browser.cjs
+UPDATE_SCREENSHOTS=0 node test_platform_browser.cjs
+```
+
+The full Python suite contains 32 methods, including clean start, elapsed-time
+transitions, manual pause/resume, indefinite takeover, exact R06 crisis, A/B/C
+outcomes/counts, reset, research navigation, reduced motion and no participant
+persistence/provider calls. Existing Milestones 1–6 remain included. The public
+browser script uses real elapsed time, not an accelerated clock: it observes
+normal movement, gradual risk, blocked exit, frozen actors, A/85 recovery, West
+Exit, final report, restart and B/C consequences. It checks reduced-motion behavior
+and captures screenshots 15–18 plus the optional recording. Legacy browser checks
+can disable screenshot rewriting to preserve all historical images 01–14.
+
+The showcase adds `showcase.py` (session-only story state) and `showcase_ui.py`
+(visitor presentation). It reuses the validated round engine and single triage
+source without modifying their scientific definitions. No Milestone 7 empirical
+study, recruitment or data collection was started.

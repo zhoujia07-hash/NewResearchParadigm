@@ -35,7 +35,7 @@ const assert = require('assert/strict');
     await page.waitForTimeout(500);
   }
   await page.goto(process.env.DEMO_URL || 'http://127.0.0.1:8501',{waitUntil:'networkidle'});
-  await page.getByText('Research instrument',{exact:true}).click();
+  await page.getByRole('button',{name:'Open Research Instrument',exact:true}).click();
   await page.getByRole('button',{name:'Normal visitor',exact:true}).click();
   await page.getByText('AI AUTO',{exact:true}).waitFor();
   let marker=page.frameLocator('iframe').first().locator('text').filter({hasText:/^R06$/});
@@ -47,9 +47,11 @@ const assert = require('assert/strict');
   assert.equal(await marker.evaluate(e=>e.previousElementSibling.getAttribute('fill')),'#dc2626');
   await page.frameLocator('iframe').first().getByText('BLOCKED',{exact:true}).waitFor();
   await mainTop();
-  await page.screenshot({path:path.join(out,'04-research-controls.png'),fullPage:true});
+  if(process.env.UPDATE_SCREENSHOTS!=='0') await page.screenshot({path:path.join(out,'04-research-controls.png'),fullPage:true});
   console.log('PASS: R06 preset = 0.8394, red, East Exit blocked, causal rules displayed.');
 
+  // Wait for the preceding Streamlit rerun to finish before a new preset click.
+  await page.waitForTimeout(700);
   await page.getByRole('button',{name:'Sensor conflict',exact:true}).click();
   await page.getByText('AI AUTO',{exact:true}).waitFor();
   await page.getByText('Escalation thresholds',{exact:true}).click();
@@ -66,7 +68,7 @@ const assert = require('assert/strict');
   // Both contribution and coverage-risk charts must render as Vega graphics.
   assert.ok(await page.locator('[data-testid="stVegaLiteChart"]').count()>=2);
   await page.waitForTimeout(700);
-  await page.screenshot({path:path.join(out,'05-threshold-sweep.png'),fullPage:true});
+  if(process.env.UPDATE_SCREENSHOTS!=='0') await page.screenshot({path:path.join(out,'05-threshold-sweep.png'),fullPage:true});
   const csv=await download('Export threshold sweep CSV','threshold_sweep.csv');
   assert.equal(csv.trim().split(/\r?\n/).length,16);
   assert.ok(csv.includes('Missed critical cases'));
@@ -87,7 +89,7 @@ const assert = require('assert/strict');
   for(const name of ['navigation_confidence','sensor_agreement','model_disagreement','behavior_anomaly','safety_risk','vulnerability'])
     assert.equal(exported.settings[name],selectedJSON.case[name]);
   await page.getByRole('heading',{name:'Case Inspector',exact:true}).evaluate(e=>e.scrollIntoView({block:'start'}));
-  await page.screenshot({path:path.join(out,'06-case-inspector.png'),fullPage:true});
+  if(process.env.UPDATE_SCREENSHOTS!=='0') await page.screenshot({path:path.join(out,'06-case-inspector.png'),fullPage:true});
   console.log('PASS: missed-critical filter, selected-case load, exact factor match and JSON exports.');
 
   // Import a downloaded config through the actual file uploader, then validate
