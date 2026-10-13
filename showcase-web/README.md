@@ -137,3 +137,62 @@ requests. Override `SHOWCASE_URL` for a different test server. It writes screens
 ![Mobile landing](../screenshots/23-vercel-showcase-mobile.png)
 
 ![Mobile human takeover](../screenshots/24-vercel-showcase-mobile-takeover.png)
+
+## V2.1 — 3D Spatial World
+
+The development frontend now defaults to browser-native **Three.js 0.186.1** /
+**React Three Fiber 9.8.1**. `@types/three` is a development dependency. No Drei,
+external character/texture/font asset or proprietary engine is required. The
+V1 instructions and checkpoint above remain historical reference; the frozen
+`showcase-v1` branch and V1 tag are unchanged.
+
+The hospital-like procedural cutaway contains the original nine places and ten
+connections, architectural walls/openings, rooms, doors, reception, atrium,
+exit signage and a crisis-triggered East Exit barricade. Eight persistent,
+articulated human avatars walk, turn and stop. R06 has grey hair and a walker,
+with scripted slowdown, hesitation and two backtracks. Neutral clothing remains
+separate from green/amber/red status rings and labels.
+
+Use Overview View or select an avatar / ID and choose Follow Person View. A 2D /
+3D toggle shares the exact same story, confidence and decisions. The retained
+V1 schematic remains usable, including automatic fallback without WebGL. Mobile
+reduces shadows, detail, antialiasing and pixel ratio. Reduced motion uses discrete
+positions, no gait/bobbing and a fixed wider follow view. The 3D chunk is imported
+client-side only; everything runs without Python, backend, secrets or storage.
+
+`lib/story.ts` remains byte-identical to V1. Presentation coordinates and poses
+live in `lib/environmentModel.ts` / `lib/navigationModel.ts`; scene components
+contain no scientific formula. The refactored `app/page.tsx` wires shared state
+into `components/scene/` and `components/panels/`, with spatial types in `types/`.
+Nearest-node profile locations in 3D describe visual position only; the scientific
+observations and original 2D reference are unchanged.
+
+> 3D avatar behavior in V2.1 is a scripted visualization of the existing prototype logic, not an empirically validated human navigation model.
+
+No individual sense-of-direction / spatial-memory traits, empirical lostness,
+real human evidence, stochastic human distributions, adaptive phone/wearable
+intervention, new intervention policy or real LLM behavior are introduced.
+V2.2, V2.3 and Milestone 7 are not started. Original timing, crisis factors,
+triage thresholds, human pause, A/B/C consequences and 40/39/1/97.5% are preserved.
+
+```bash
+npm install
+npm run typecheck
+npm run test          # 10 tests, including unchanged original tests / Python parity
+npm run build
+npm start            # separate terminal for the production browser checks
+npm run test:browser:3d
+UPDATE_SCREENSHOTS=0 npm run test:browser
+```
+
+The 3D Playwright test uses actual WebGL pixels, scene avatar groups and raycast
+selection, with real story timing. It verifies cameras, backtracks, pause, all
+outcomes, toggles, reset, 390px mobile, reduced motion, no-WebGL fallback and no
+errors/external requests/storage, producing screenshots 25–32. It uses software
+WebGL flags in this headless environment; device performance is not benchmarked.
+The existing 2D regression can preserve historical images with UPDATE_SCREENSHOTS=0.
+See [V2.1 screenshots and validation](../README.md#v21--3d-spatial-world).
+
+Vercel deployment settings remain unchanged: `main`, Root Directory
+`showcase-web`, Next.js, Node 24.x, default build/output, no environment variables.
+No new stable version tag or verified live V2.1 URL is created by this stage.

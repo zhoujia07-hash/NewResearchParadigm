@@ -664,3 +664,105 @@ study or empirical work was begun.
 ![Vercel Showcase mobile landing](screenshots/23-vercel-showcase-mobile.png)
 
 ![Vercel Showcase mobile takeover](screenshots/24-vercel-showcase-mobile-takeover.png)
+
+## V2.1 — 3D Spatial World
+
+V2.1 is an intermediate development stage on `main`: browser-native **Three.js +
+React Three Fiber** in the existing Next.js / TypeScript / App Router frontend.
+The default 3D view reconstructs all nine V1 places and ten connections as a
+procedural hospital-like cutaway: floors, corridor walls and openings, rooms,
+furnishings, doors, reception, atrium landmarks, exit signage and an East Exit
+barricade that appears with the existing crisis. No proprietary character,
+texture, font or building assets are downloaded. All geometry and labels are
+built locally in code.
+
+The same R01–R08 identities are articulated human figures with distinct neutral
+clothing, moving legs/arms, turning, stopping and small walking motion. R06 is
+an older adult with grey hair and a walker. Green, amber and red rings / identity
+labels indicate status; clothing and skin are not recolored as risk indicators.
+R06's slowdown, two backtracks and hesitation are explicitly scripted spatial
+choreography. Overview View shows the building and residents; Follow Person View
+tracks the selected resident smoothly from a closer third-person camera.
+Click an avatar or use the accessible identity buttons to select its profile.
+
+**One story, two views.** The 2D View remains the extracted V1 schematic, including
+its shared-location marker layout. Switching 2D / 3D never resets or advances the
+story, changes a human choice or creates separate observations. Both consume the
+same React story state. The original `showcase-web/lib/story.ts` is byte-identical
+to V1, including timing, factors, triage formulas / thresholds, indefinite human
+pause, A/B/C and 40/39/1/97.5% counting. Python scientific/platform sources are also
+unchanged. A still reaches West Exit, B stops at the unsafe blocked approach, and
+C reaches Refuge Point with staff assistance pending. Profiles retain their
+original content; in 3D the schematic location follows the nearest node to the
+scripted visual position, without altering any scientific observation.
+
+**Presentation structure:** `app/page.tsx` composes the story and panels;
+`components/scene/` contains Environment3D, BuildingModel, ResidentAvatar,
+CameraController, SceneControls, the retained Schematic2D, local text labels and
+the shared viewport. `components/panels/` holds the original resident, status,
+story, decision and report presentation. `types/environment.ts`,
+`lib/environmentModel.ts` and `lib/navigationModel.ts` define spatial coordinates
+and visualization choreography. No scientific formula lives in a visual component.
+
+The 3D chunk is loaded only on the client. Mobile uses pixel ratio 1, fewer
+furnishings, no shadows and no antialiasing. Reduced motion disables gait/bobbing,
+uses discrete avatar positions and a fixed wider follow camera instead of
+continuous tracking. Unsupported WebGL automatically falls back to the same 2D
+story. The 2D toggle remains available throughout. No backend, database, login,
+API key, LLM, participant persistence or external runtime service is required.
+Vercel settings remain `main` / Root Directory `showcase-web` / Next.js / Node 24.x,
+default build/output, no environment variables.
+
+> 3D avatar behavior in V2.1 is a scripted visualization of the existing prototype logic, not an empirically validated human navigation model.
+
+There is **no individual human model**, sense-of-direction model, spatial-memory
+model, stochastic navigation distribution, empirical lostness prediction or
+adaptive phone/wearable intervention. Avatars are not validated substitutes for
+real people. This adds no real human evidence, real LLM integration or Milestone 7.
+**V2.2 and V2.3 have not been started.** All V1 caveats remain: 97.5% is a scripted
+prototype result, not a real-world automation estimate; Human-alone and Hybrid
+performance require empirical validation.
+
+Validation: `npm install`, `npm run typecheck`, **10 frontend tests**, production
+`npm run build`, **32 Python regression tests**, real-time Chromium 3D and retained
+2D browser flows. The 3D browser test checks actual WebGL pixels and actual avatar
+groups, raycast selection, cameras, green/amber/red, two backtracks/hesitation,
+barrier, frozen positions, shared-state toggles, A/85 safe arrival, B/C outcomes,
+reset, reduced motion, 390px layout, forced no-WebGL fallback, no browser errors,
+no browser storage and no external requests. Spatial tests enforce byte-level V1
+story parity and prevent presentation calls from mutating story state.
+
+```bash
+cd showcase-web
+npm install
+npm run typecheck
+npm run test
+npm run build
+# Start the production server in another terminal with npm start, then:
+npm run test:browser:3d
+UPDATE_SCREENSHOTS=0 npm run test:browser
+# From repository root, using the existing Python environment:
+python -m unittest discover -v
+```
+
+The browser test uses installed Chromium (`CHROMIUM_PATH` override). Headless
+cloud verification uses Chromium's software WebGL renderer; real-device GPU
+performance has not been benchmarked. No live V2.1 deployment URL has been
+independently verified here. `showcase-v1` and the existing V1 tag remain frozen;
+this is an intermediate main commit, not a new `showcase-v2` checkpoint.
+
+![V2.1 3D overview](screenshots/25-v2-1-3d-overview.png)
+
+![V2.1 normal 3D movement](screenshots/26-v2-1-3d-normal.png)
+
+![V2.1 emerging uncertainty](screenshots/27-v2-1-3d-emerging.png)
+
+![V2.1 3D human takeover](screenshots/28-v2-1-3d-takeover.png)
+
+![V2.1 follow R06](screenshots/29-v2-1-3d-follow-r06.png)
+
+![V2.1 hybrid recovery](screenshots/30-v2-1-3d-recovery.png)
+
+![V2.1 retained 2D fallback](screenshots/31-v2-1-2d-fallback.png)
+
+![V2.1 mobile 3D](screenshots/32-v2-1-mobile.png)

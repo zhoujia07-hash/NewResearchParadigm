@@ -14,8 +14,8 @@ const screenshots=path.resolve(__dirname,'../../screenshots');
   const resident=id=>page.locator(`[data-resident="${id}"]`);
   const count=async()=>assert.equal(await page.locator('[data-resident]').count(),8);
   const transforms=()=>page.locator('[data-resident]').evaluateAll(els=>els.map(e=>e.getAttribute('transform')));
-  const screenshot=async(name)=>{fs.mkdirSync(screenshots,{recursive:true});await page.screenshot({path:path.join(screenshots,name),fullPage:true});};
-  await page.goto(base,{waitUntil:'networkidle'});await state('idle');await count();
+  const screenshot=async(name)=>{fs.mkdirSync(screenshots,{recursive:true});if(process.env.UPDATE_SCREENSHOTS!=='0') await page.screenshot({path:path.join(screenshots,name),fullPage:true});};
+  await page.goto(base,{waitUntil:'networkidle'});await page.getByRole('button',{name:'2D View',exact:true}).click();await state('idle');await count();
   await page.getByRole('heading',{name:'New Research Paradigm',exact:true}).waitFor();
   await page.getByText('This is a simplified indoor navigation environment representing a large public building such as a hospital.',{exact:true}).waitFor();
   await resident('R02').click();await page.locator('.profile-id').getByText('R02',{exact:true}).waitFor();
@@ -52,11 +52,12 @@ const screenshots=path.resolve(__dirname,'../../screenshots');
   await page.getByRole('button',{name:/^Reset/}).click();await state('idle');await count();assert.equal(await page.locator('.report').count(),0);assert.equal(await resident('R06').getAttribute('data-color'),'green');
   const mobileContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce'});
   const mobile=await mobileContext.newPage();observe(mobile);await mobile.goto(base,{waitUntil:'networkidle'});
+  await mobile.getByRole('button',{name:'2D View',exact:true}).click();
   async function noOverflow(){assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'horizontal overflow');}
   await noOverflow();
   await mobile.locator('[data-resident=R02]').tap();await mobile.locator('.profile-id').getByText('R02',{exact:true}).waitFor();
   await mobile.locator('[data-resident=R06]').tap();await mobile.locator('.profile-id').getByText('R06',{exact:true}).waitFor();
-  await mobile.screenshot({path:path.join(screenshots,'23-vercel-showcase-mobile.png'),fullPage:true});
+  if(process.env.UPDATE_SCREENSHOTS!=='0') await mobile.screenshot({path:path.join(screenshots,'23-vercel-showcase-mobile.png'),fullPage:true});
   await mobile.getByRole('button',{name:'Skip to Human Takeover',exact:true}).click();
   await mobile.locator('main[data-stage=human][data-reduced-motion=true]').waitFor();await noOverflow();
   const markerBounds=await mobile.locator('[data-resident] circle:not(.selection-ring)').evaluateAll(els=>els.map(e=>{const r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2,r:r.width/2};}));
@@ -64,7 +65,7 @@ const screenshots=path.resolve(__dirname,'../../screenshots');
     const a=markerBounds[i],b=markerBounds[j];assert.ok(Math.hypot(a.x-b.x,a.y-b.y)>a.r+b.r,'Reduced-motion occupants must remain individually visible');
   }
   assert.equal(await mobile.locator('[data-resident=R06]').evaluate(e=>getComputedStyle(e).transitionDuration),'0s');
-  await mobile.screenshot({path:path.join(screenshots,'24-vercel-showcase-mobile-takeover.png'),fullPage:true});
+  if(process.env.UPDATE_SCREENSHOTS!=='0') await mobile.screenshot({path:path.join(screenshots,'24-vercel-showcase-mobile-takeover.png'),fullPage:true});
   for(const c of ['B','C']){
     if(c==='C'){await mobile.getByRole('button',{name:/^Reset/}).click();await mobile.getByRole('button',{name:'Skip to Human Takeover',exact:true}).click();}
     await mobile.getByRole('radio',{name:c==='B'?/B Continue to East Exit/:/C Refuge Point/}).check();
