@@ -281,3 +281,30 @@ verifies the batch UI and study exports when the local Streamlit server is runni
 ![Head–tail distribution](screenshots/08-head-tail-distribution.png)
 
 ![Human study case selection](screenshots/09-human-study-selection.png)
+
+## Milestone 5 — Generative Multi-Agent Integration
+
+Choose **Multi-agent comparison**. Deterministic remains the default; choose
+Concordia / LLM and mock to run ResidentAgent, RouteAgent, SafetyAgent,
+AccessibilityAgent and GameMaster through the installed Concordia 2.4 EntityAgent
+lifecycle. The resident is conditioned by the profile; the environment controller
+holds topology and hazards. Mock is a scripted proposal source, not a real LLM.
+A validated, optional real-provider seam is available but real provider requests
+have not been executed. See [Concordia API and provider setup](agents/CONCORDIA_NOTES.md).
+
+The recommendation matrix exposes choices/confidence/reasons and blocked-route
+admissibility. Advisor pairwise route mismatch feeds the unchanged triage engine.
+Structured parsing, finite-number clamping, explicit no-key mock fallback and
+whole-input deterministic fallback prevent malformed prose from controlling the
+experiment. The same scenario's deterministic and agent outputs are compared;
+no behavioral validity or superiority is inferred. Optional dependencies are in
+`requirements-agents.txt`; `requirements.txt` alone preserves all no-key modes.
+
+Twenty automated test methods plus Chromium verification passed. The verified
+blocked-exit mock generated three distinct advisor routes, disagreement 1.0 and
+human escalation; baseline R06 scoring remains unchanged in deterministic mode.
+**Agent simulation validity must be evaluated against human behavior.**
+
+![Multi-agent integration](screenshots/10-multi-agent.png)
+
+![Agent disagreement comparison](screenshots/11-agent-disagreement.png)

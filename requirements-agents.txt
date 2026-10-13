@@ -1,0 +1,2 @@
+# Optional; requirements.txt remains sufficient for all no-key workflows.
+gdm-concordia==2.4.0

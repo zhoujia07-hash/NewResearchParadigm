@@ -7,6 +7,7 @@ import streamlit as st
 from triage import triage_score
 from research_ui import render_research
 from batch_ui import render_batch
+from agents_ui import render_agents
 from web_simulation import CHOICES, Simulation
 
 st.set_page_config(page_title='New Research Paradigm', layout='wide')
@@ -185,10 +186,12 @@ def dashboard():
     collaboration_report(sim)
 
 
-workspace = st.sidebar.radio('Workspace', ['Five-round demo', 'Research instrument', 'High-throughput sandbox'], key='workspace')
+workspace = st.sidebar.radio('Workspace', ['Five-round demo', 'Research instrument', 'High-throughput sandbox', 'Multi-agent comparison'], key='workspace')
 if workspace == 'Five-round demo':
     dashboard()
 elif workspace == 'Research instrument':
     render_research(floor_plan)
-else:
+elif workspace == 'High-throughput sandbox':
     render_batch(floor_plan)
+else:
+    render_agents(floor_plan)
