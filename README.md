@@ -251,3 +251,33 @@ and study conditions, add consent/session identifiers and timestamped interactio
 logs, counterbalance AI-only/Human-only/Hybrid conditions, and export comparable
 human outcomes. Use those data to evaluate decision quality, workload, confidence
 and intervention timing before calibrating thresholds or adding real LLM agents.
+
+## Milestone 4 — High-Throughput Digital Sandbox
+
+Choose **High-throughput sandbox**. Generate 100, 500, 1,000 or 5,000 seeded
+scenarios varying profile, navigation, sensor/agent confidence and environmental
+metadata. Six independently sampled factors feed the unchanged deterministic
+triage. Metadata are not hidden causal modifiers. HEAD and WATCH both remain
+automatic; LONG-TAIL cases escalate. The dashboard shows percentages, score
+histograms, overlapping escalation reasons, descriptive binned factor rates,
+coverage/recall frontier, missed/false escalations and interventions per 1,000.
+
+The top-20 ranking is an explicitly exploratory mean of score, disagreement,
+risk, sensor conflict and boundary ambiguity. Select a case to replay its
+profile and triage state on the existing map. Study sampling includes highest
+risk, highest disagreement, nearest main threshold, round-robin reason strata,
+and seeded random tail cases. All strategies sample only escalated cases without
+replacement. Conditions have deterministic unique IDs; small/empty pools are
+reported honestly. JSON/CSV exports retain factors, metadata, seeds, weights,
+thresholds and selection strategy. They are prioritization material, not
+validated human-study conditions or human evidence.
+
+Verified with 16 automated test methods and a Chromium workflow. Run the full
+suite with `python -m unittest discover -v`. `node test_platform_browser.cjs`
+verifies the batch UI and study exports when the local Streamlit server is running.
+
+![High-throughput sandbox](screenshots/07-high-throughput.png)
+
+![Head–tail distribution](screenshots/08-head-tail-distribution.png)
+
+![Human study case selection](screenshots/09-human-study-selection.png)
