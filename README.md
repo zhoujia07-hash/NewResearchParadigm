@@ -308,3 +308,80 @@ human escalation; baseline R06 scoring remains unchanged in deterministic mode.
 ![Multi-agent integration](screenshots/10-multi-agent.png)
 
 ![Agent disagreement comparison](screenshots/11-agent-disagreement.png)
+
+## Milestone 6 — Human Experiment Platform
+
+Choose **Human Study Builder**. Configure trials **per condition** (1–20), case
+sampling, AI-only/Human-only/Human + AI selective takeover conditions, five
+explanation levels, seed, optional post-trial questions, timer visibility and
+Deterministic/Concordia-mock proposal source. Default is one case per condition
+(three trials), full explanations, no optional questions, hidden timer.
+Generate/export `experiment_protocol.json`, then Launch Pilot Participant.
+
+The builder consumes the current batch study pool, or generates a reproducible
+500-case space if no pool exists. Each selected case appears once in each chosen
+condition. Case order, per-case condition order and Hybrid explanation assignment
+are seeded. Small pools reduce actual trial count rather than inventing cases.
+Repeated scenarios enable a paired prototype comparison but can create carryover
+and learning effects; this is not a complete counterbalancing design.
+
+The participant interface hides researcher navigation/controls. It progresses
+through a consent **placeholder**, instructions, trials and completion. It shows:
+
+- AI-only: the automatic decision, with no fabricated human response or human RT.
+- Human-only: map and spatial facts, without AI recommendation/confidence/evidence.
+- Hybrid: human judgment only for cases escalated by the unchanged triage engine;
+  ordinary cases remain automatic.
+
+Explanation levels are recommendation only, +confidence, +sensor evidence,
++agent disagreement, and full explanation. The trial never reveals the scripted
+correct-choice reference. Optional workload, trust, difficulty and usefulness
+items are off by default; enabled items remain optional and are not imputed.
+
+**Formal human-subject research requires institutionally approved consent and
+ethics procedures.** This prototype collects no names, emails, participant health
+information or identifying personal fields. Resident profiles describe fictional
+scenarios, not the participant. Anonymous IDs (P001, P002, …) and internal random
+session IDs are allocated locally. Browser tests explicitly label their source
+`automated_browser_pilot`; software-generated test sessions are `synthetic_pilot`.
+Manual demonstrations are `prototype_pilot`, never labeled empirical research.
+
+RT starts once, using the server's monotonic clock before rendering each human
+trial, and stops on submission. Slider/radio reruns do not reset it. This includes
+server-render/network overhead and is **not** a calibrated browser onset measure.
+The default timer is hidden. AI-only and automatic Hybrid trials store no human
+RT. Trial-number guards and the database primary key prevent duplicate records.
+
+SQLite is the authoritative local log. JSON/CSV files are refreshed after each
+trial under the ignored `data/` directory; results can also be downloaded from
+the completion/dashboard screen. Nothing in `data/` is committed. Rows include
+anonymous/session IDs, condition/case IDs, choices, confidence, RT, reference,
+correctness, acceptance, triage, explanation, seed, source and optional measures.
+AI acceptance is only defined when a human actually sees the AI recommendation;
+it is not inferred from Human-only agreement. JSON/CSV reimport uses a closed
+schema and rejects identifying extra fields, duplicate trials and inconsistent
+response flags. Imported results are analyzed, not automatically added to logs.
+
+Two separate synthetic references are kept explicit:
+
+1. Milestones 3–4 critical label: the documented factor-based stress-test rule.
+2. Pilot route reference: medical event → C; blocked East path/exit or fire alarm
+   → A; otherwise B. West is assumed clear/accessible and refuge available.
+
+The route reference is a **scripted benchmark convention**, not empirical safety
+truth. The dashboard computes accuracy by condition, mean human RT/confidence,
+Hybrid AI acceptance, performance by escalation-rule category, and
+`Hybrid accuracy − max(AI-only accuracy, Human-only accuracy)`. Missing arms give
+N/A. **No scientific conclusion can be drawn until empirical human data are
+collected.** Synthetic/pilot arithmetic never establishes Hybrid > Human.
+
+Verified with 26 automated tests and an end-to-end Chromium pilot spanning all
+three conditions: protocol export, consent/instructions, AI hiding, human RT,
+JSON/CSV persistence, completion, analysis and exported-data reimport. The browser
+pilot used known scripted choices for test purposes; it was not a human study.
+
+![Human study builder](screenshots/12-human-study-builder.png)
+
+![Participant selective takeover](screenshots/13-participant-takeover.png)
+
+![Labeled pilot results](screenshots/14-results-dashboard.png)

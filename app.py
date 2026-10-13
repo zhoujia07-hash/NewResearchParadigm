@@ -8,6 +8,7 @@ from triage import triage_score
 from research_ui import render_research
 from batch_ui import render_batch
 from agents_ui import render_agents
+from study_ui import render_builder, render_participant
 from web_simulation import CHOICES, Simulation
 
 st.set_page_config(page_title='New Research Paradigm', layout='wide')
@@ -16,13 +17,14 @@ st.markdown('''<style>
 h1,h2,h3 {font-family:Georgia,serif;}
 .pipeline {background:#eff3f7;border-left:4px solid #506880;padding:14px 20px;margin:16px 0;}
 </style>''', unsafe_allow_html=True)
-st.title('New Research Paradigm')
-st.markdown('**AI High-Throughput Simulation + Human Long-Tail Intervention**')
-st.markdown('<div class="pipeline">AI Sandbox → Triage → Human Takeover → Hybrid Decision</div>',
-            unsafe_allow_html=True)
-st.caption('Configurable snapshot workspace · fixed-seed synthetic benchmark · No LLM APIs or external services'
-           if st.session_state.get('workspace') == 'Research instrument' else
-           'Deterministic research prototype · 8 occupants · 5 rounds · No LLM APIs or external services')
+if st.session_state.get('participant_session') is None:
+    st.title('New Research Paradigm')
+    st.markdown('**AI High-Throughput Simulation + Human Long-Tail Intervention**')
+    st.markdown('<div class="pipeline">AI Sandbox → Triage → Human Takeover → Hybrid Decision</div>',
+                unsafe_allow_html=True)
+    st.caption('Configurable snapshot workspace · fixed-seed synthetic benchmark · No LLM APIs or external services'
+               if st.session_state.get('workspace') == 'Research instrument' else
+               'Deterministic research prototype · 8 occupants · 5 rounds · No LLM APIs or external services')
 
 if 'simulation' not in st.session_state:
     st.session_state.simulation = Simulation()
@@ -37,7 +39,7 @@ COORDS = {
 }
 
 
-def floor_plan(sim, research_state=None, exit_blocked=None):
+def floor_plan(sim, research_state=None, exit_blocked=None, show_legend=True):
     edges = [('Entrance', 'Junction A'), ('Entrance', 'Junction B'),
              ('Junction A', 'North Atrium'), ('Junction B', 'North Atrium'),
              ('Junction A', 'Junction B'), ('Junction B', 'East Corridor'),
@@ -81,7 +83,8 @@ def floor_plan(sim, research_state=None, exit_blocked=None):
     parts.append('</svg>')
     st.iframe('<html><body style="margin:0">' + ''.join(parts) + '</body></html>',
               height=440, alt='Schematic floor plan with R01–R08')
-    st.caption('Green: ordinary automation · Amber: unresolved / awaiting staff · Red: critical crisis · Dashed line: submitted R06 route')
+    if show_legend:
+        st.caption('Green: ordinary automation · Amber: unresolved / awaiting staff · Red: critical crisis · Dashed line: submitted R06 route')
 
 
 def takeover(sim):
@@ -186,12 +189,17 @@ def dashboard():
     collaboration_report(sim)
 
 
-workspace = st.sidebar.radio('Workspace', ['Five-round demo', 'Research instrument', 'High-throughput sandbox', 'Multi-agent comparison'], key='workspace')
-if workspace == 'Five-round demo':
-    dashboard()
-elif workspace == 'Research instrument':
-    render_research(floor_plan)
-elif workspace == 'High-throughput sandbox':
-    render_batch(floor_plan)
+if st.session_state.get('participant_session') is not None:
+    render_participant(floor_plan)
 else:
-    render_agents(floor_plan)
+    workspace = st.sidebar.radio('Workspace', ['Five-round demo', 'Research instrument', 'High-throughput sandbox', 'Multi-agent comparison', 'Human Study Builder'], key='workspace')
+    if workspace == 'Five-round demo':
+        dashboard()
+    elif workspace == 'Research instrument':
+        render_research(floor_plan)
+    elif workspace == 'High-throughput sandbox':
+        render_batch(floor_plan)
+    elif workspace == 'Multi-agent comparison':
+        render_agents(floor_plan)
+    else:
+        render_builder()
