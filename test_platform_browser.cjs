@@ -8,6 +8,7 @@ const assert=require('assert/strict');
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:8501',{waitUntil:'networkidle'});
  async function shot(name,heading){
+  await page.waitForTimeout(1000);
   await page.getByRole('heading',{name:heading,exact:true}).evaluate(e=>e.scrollIntoView({block:'start'}));
   await page.screenshot({path:path.join(__dirname,'screenshots',name),fullPage:true});
  }

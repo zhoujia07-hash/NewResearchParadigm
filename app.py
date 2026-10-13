@@ -42,7 +42,7 @@ def floor_plan(sim, research_state=None, exit_blocked=None):
              ('Junction A', 'Junction B'), ('Junction B', 'East Corridor'),
              ('East Corridor', 'East Exit'), ('Junction A', 'West Corridor'),
              ('West Corridor', 'West Exit'), ('Junction B', 'Refuge Point')]
-    parts = ['<svg viewBox="-20 0 760 440" role="img" aria-label="Building floor plan with eight resident markers" xmlns="http://www.w3.org/2000/svg">',
+    parts = ['<svg style="width:100%;height:440px" viewBox="-20 0 760 440" role="img" aria-label="Building floor plan with eight resident markers" xmlns="http://www.w3.org/2000/svg">',
              '<rect x="-20" width="760" height="440" rx="12" fill="#f6f8fa"/>']
     for a, b in edges:
         x1, y1 = COORDS[a]
