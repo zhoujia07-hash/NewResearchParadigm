@@ -1,5 +1,9 @@
 # New Research Paradigm
 
+**Standalone Vercel Showcase:** the new [Next.js frontend](showcase-web/README.md)
+runs independently in `showcase-web/`, with no Python server or environment variables.
+The original Streamlit research platform remains available below.
+
 **Public Showcase → experience the paradigm.** The default landing page is a
 minimal guided story: ordinary cases → emerging risk → automatic pause → your
 judgment → hybrid recovery. No researcher sliders, sign-in or API key are needed.
@@ -615,3 +619,41 @@ The showcase adds `showcase.py` (session-only story state) and `showcase_ui.py`
 (visitor presentation). It reuses the validated round engine and single triage
 source without modifying their scientific definitions. No Milestone 7 empirical
 study, recruitment or data collection was started.
+
+## Standalone Vercel Showcase
+
+The public client frontend lives in [showcase-web/](showcase-web/README.md): Next.js,
+TypeScript and App Router. It introduces the environment and legend, animates the
+same eight occupants, shows R06 turning amber then red, freezes at the blocked
+exit, waits indefinitely for A/B/C plus confidence, and resumes to the selected
+outcome and 40/39/1 report. Hover, click, tap or keyboard-focus a marker to inspect
+its resident profile. Reduced motion, pause/resume, skip and clean reset are included.
+It uses session memory only, with no API, authentication, database, LLM or participant
+persistence. The original Python scientific files and Streamlit workflows are unchanged.
+
+**Vercel settings:** repository `zhoujia07-hash/NewResearchParadigm`, branch `main`,
+Root Directory **showcase-web**, Framework **Next.js**, Node **24.x**. Keep the
+default install/build commands and output directory. **No environment variables.**
+Import the repository in Vercel and click Deploy; allow public access in Deployment
+Protection settings if enabled by your account. No live Vercel URL is claimed.
+See the [frontend deployment and test instructions](showcase-web/README.md).
+
+Production build and five frontend model/parity tests passed. The existing Python
+suite still passes all 32 methods. Real Chromium verification covers A/85 through
+West Exit, gradual amber/red transitions, blocked exit and pause, reset, B/C,
+390px mobile layout, reduced motion, and no browser errors or external requests.
+97.5% remains a scripted prototype result, not a real-world automation estimate;
+Human-alone and Hybrid performance require empirical validation. No Milestone 7
+study or empirical work was begun.
+
+![Vercel Showcase normal simulation](screenshots/19-vercel-showcase-normal.png)
+
+![Vercel Showcase emerging risk](screenshots/20-vercel-showcase-emerging.png)
+
+![Vercel Showcase human takeover](screenshots/21-vercel-showcase-takeover.png)
+
+![Vercel Showcase final report](screenshots/22-vercel-showcase-final.png)
+
+![Vercel Showcase mobile landing](screenshots/23-vercel-showcase-mobile.png)
+
+![Vercel Showcase mobile takeover](screenshots/24-vercel-showcase-mobile-takeover.png)
