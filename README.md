@@ -1,5 +1,10 @@
 # New Research Paradigm
 
+**Stable checkpoint: [V1](https://github.com/zhoujia07-hash/NewResearchParadigm/tree/V1)**
+— commit `8ebddca5ec84b3fc29e789febc800fc5bdc2bdc0`, successfully deployed to Vercel
+as confirmed by the project owner. V1 is permanent; future development continues
+from `main`. See [checkpoint and rollback instructions](VERSION_CHECKPOINTS.md).
+
 **Standalone Vercel Showcase:** the new [Next.js frontend](showcase-web/README.md)
 runs independently in `showcase-web/`, with no Python server or environment variables.
 The original Streamlit research platform remains available below.
@@ -13,8 +18,9 @@ Research Instrument** for the preserved Milestone 1–6 workflows. Leaving an
 active story pauses it, so returning does not jump ahead. Milestone 7 has **not**
 been started.
 
-Public deployment is prepared but **not yet published**. No Live Demo URL is
-claimed; the exact Streamlit Community Cloud deployment action is below.
+The standalone Vercel Showcase is deployed at **V1**, as confirmed by the project
+owner; its public URL has not been provided here. The separate Streamlit Community
+Cloud deployment remains unpublished; its deployment action is below.
 
 
 **AI High-Throughput Simulation + Human Long-Tail Intervention**
@@ -634,8 +640,9 @@ persistence. The original Python scientific files and Streamlit workflows are un
 **Vercel settings:** repository `zhoujia07-hash/NewResearchParadigm`, branch `main`,
 Root Directory **showcase-web**, Framework **Next.js**, Node **24.x**. Keep the
 default install/build commands and output directory. **No environment variables.**
-Import the repository in Vercel and click Deploy; allow public access in Deployment
-Protection settings if enabled by your account. No live Vercel URL is claimed.
+For a new deployment, import the repository in Vercel and click Deploy; allow public
+access in Deployment Protection settings if enabled by your account. The project
+owner has confirmed V1 is successfully deployed; no URL is inferred here.
 See the [frontend deployment and test instructions](showcase-web/README.md).
 
 Production build and five frontend model/parity tests passed. The existing Python

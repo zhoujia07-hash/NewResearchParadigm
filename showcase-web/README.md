@@ -98,8 +98,9 @@ Import the GitHub repository into Vercel with these settings:
 Click **Deploy**. For a public client demo, allow public access in the project's
 Deployment Protection settings if the account enables protection by default.
 Do not select the repository root or `app.py`: that is the separate Streamlit app.
-No Vercel-specific rewrite or secret is needed. No public Vercel URL has been
-created or verified by this change; use the actual URL Vercel gives after deploying.
+No Vercel-specific rewrite or secret is needed. The project owner has confirmed the V1 commit is successfully deployed to Vercel.
+The public URL has not been provided here; use the actual URL from the Vercel
+project. See [permanent checkpoint and rollback policy](../VERSION_CHECKPOINTS.md).
 
 ## Validation
 
