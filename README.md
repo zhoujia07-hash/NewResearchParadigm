@@ -1,5 +1,51 @@
 # New Research Paradigm
 
+**AI High-Throughput Simulation + Human Long-Tail Intervention**
+
+A runnable HCI research instrument for exploring **when AI should stop acting
+autonomously and defer a spatial decision to a human**. Ordinary cases are
+processed automatically; uncertain/high-risk tails are prioritized for human
+judgment and subsequent empirical evaluation.
+
+```text
+Large Scenario Space
+        ↓
+AI High-Throughput Sandbox
+        ↓
+Automatic Triage
+      ↙   ↘
+HEAD      LONG TAIL
+ ↓            ↓
+AUTO        HUMAN
+              ↓
+        Hybrid Decision
+              ↓
+        Empirical Evaluation (future approved human studies)
+```
+
+**Evidence boundary:** all included scenarios, agent outputs and automated pilot
+runs are **SIMULATED EVIDENCE**, not **HUMAN EMPIRICAL EVIDENCE**. The familiar
+97.5% automation coverage is the result of one fictional five-round demonstration,
+not an estimate of real-world automation. Synthetic agents never substitute for
+human participants, and Hybrid > Human is not claimed.
+
+| Milestone | Capability | Current validation |
+| --- | --- | --- |
+| 1 | Standard-library CLI, asyncio, 8 occupants, selective takeover | A/85 closed loop and JSON report |
+| 2 | Five-round visual sandbox, pause/resume, human judgment | A/B/C tests and Chromium interaction |
+| 3 | Configurable factors/weights/rules, reproducible sweep and inspector | Default rules, seed, import/export and regression tests |
+| 4 | 100–5,000 scenarios, head/tail exploration and study sampling | Four sizes, five strategies, unique condition exports |
+| 5 | Five-role Concordia adapter, structured proposals and comparison | Actual Concordia 2.4 lifecycle with mock; real LLM calls untested |
+| 6 | Anonymous study builder, three trial conditions, logs and pilot analysis | Automated synthetic pilot; no real human study performed |
+
+**Quick start (Python 3.12+):** create/activate a virtual environment, run
+`python -m pip install -r requirements.txt`, then `streamlit run app.py`.
+All deterministic, study and no-key mock workflows remain available with this
+base installation. Optionally install `requirements-agents.txt` for Concordia.
+The sidebar selects the five workspaces; participant pilots hide researcher
+controls. Formal participant deployments are outside the validated scope.
+
+
 A deterministic research demo of AI throughput with selective human takeover.
 The validated command-line baseline is `demo.py`; its scenario and decision
 application are reused by the Web Demo. Milestone 3 extracts its unchanged
@@ -385,3 +431,74 @@ pilot used known scripted choices for test purposes; it was not a human study.
 ![Participant selective takeover](screenshots/13-participant-takeover.png)
 
 ![Labeled pilot results](screenshots/14-results-dashboard.png)
+
+## Final integration and reproducibility
+
+All six milestones use the same `triage.py` definition. Historical imports and
+screenshots 01–14 are retained. Core/default thresholds remain uncalibrated.
+The current implementation intentionally keeps the old root imports rather than
+moving the validated CLI modules behind new package paths.
+
+```text
+app.py                         workspace selection and shared map
+triage.py                      single scientific score/rule implementation
+demo.py                        validated standard-library CLI
+web_simulation.py              legacy five-round state
+research_config.py / research_ui.py
+synthetic_cases.py             original six-factor benchmark
+batch_simulation.py / batch_ui.py
+agents/                        Concordia adapter and inspected API notes
+agents_ui.py                   structured comparison
+experiment/                    builder, participant state, storage, analysis
+study_ui.py                    researcher/participant screens
+test_web.py / tests/            Python regression/instrument tests
+test_browser.cjs                Milestone 2/3 real-browser workflow
+test_platform_browser.cjs       Milestone 4/5/6 real-browser workflow
+screenshots/                   all fourteen documented states
+data/                          ignored local anonymous pilot logs
+```
+
+Final checks: **26 test methods passed**, with no failed/skipped tests;
+both Chromium scripts passed their complete workflows, without browser runtime
+errors. Standard-library CLI validation runs in a temporary directory so it does
+not overwrite the retained baseline report. Package dependency integrity was
+checked with `python -m pip check`. Pilot persistence and JSON/CSV round trips
+were checked against the exported records, not only an HTTP health response.
+
+```bash
+python -m unittest discover -v
+node test_browser.cjs
+node test_platform_browser.cjs
+```
+
+Browser scripts require Playwright + Chromium, already installed in the cloud
+runtime; they are development checks rather than application dependencies.
+They generate screenshots and explicitly marked automated pilot logs. The app
+runs locally; the repository screenshots can be viewed directly on GitHub.
+Live processes and browser sessions are not assumed to survive a new environment.
+
+Technical limits: local SQLite/files and Streamlit session state are not a
+production multi-user/authentication system. Protocol import/resume, calibrated
+client-onset RT, durable deployed storage and formal counterbalancing are not yet
+implemented. Concordia integration is a bounded, single-turn entity adapter,
+not a full memory/world engine. Real provider behavior, cost and availability
+remain untested. JSON/CSV pilot mirrors rely on writable local storage.
+
+Scientific limits: independent uniform factor sampling is a stress-test space,
+not a calibrated population model. Scores, context mappings, route references,
+difficulty rankings and study conditions need external validation. Descriptive
+associations and aggregate complementarity arithmetic cannot establish causal
+effects, human effect sizes or Hybrid superiority. Repeated case presentations
+may introduce learning/carryover. No real human behavioral data were collected.
+
+**Recommended Milestone 7:** preregister a small, institutionally approved human
+pilot; refine task validity and accessible stimuli; implement counterbalancing,
+client-timestamp validation and deployment/privacy controls; then evaluate
+behavioral validity, decision quality, cognition, workload, trust calibration and
+complementarity before calibrating thresholds or scaling generative simulation.
+
+**Collaborator description:** New Research Paradigm explores a large synthetic
+spatial-decision space, deterministically triages ordinary and long-tail cases,
+exposes structured agent disagreements, and turns selected tails into anonymous
+human-in-the-loop pilot trials—while keeping simulation evidence separate from
+future human empirical evidence.
