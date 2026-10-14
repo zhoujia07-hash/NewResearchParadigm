@@ -1,3 +1,5 @@
+/** Environment spatial resolution, distinct from Human analysis resolution. */
+export const ENVIRONMENT_ANALYSIS_LEVELS={global:'environmental-global',local:'environmental-local',immediate:'environmental-immediate'} as const;
 import type {EvidenceValue} from '../shared';
 import type {EpisodeWindow,SpatialScope} from '../navigation/scales';
 export interface ScaledEnvironmentFactor {readonly factorId:string;readonly scope:SpatialScope;readonly value:EvidenceValue<number|string|boolean>}

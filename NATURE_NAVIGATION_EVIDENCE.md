@@ -114,3 +114,34 @@ The complete [factor audit index](docs/navigation-factor-index.md) lists every f
 Human scientific review should inspect the actual paper, confirm the bibliography (including S8 DOI), delimit the relevant passage/task/population, select an operationalization and scale, and version an explicit model binding. A review may organize determinants without supporting a coefficient. A primary study may support an association or effect in its setting without establishing transportability to hospitals, older adults, walkers, wheelchair users or drivers. Registering a source/model does not establish causality.
 
 This refinement contains no SoD/anxiety equation, lostness probability/CNN-BiLSTM, entropy/complexity/salience algorithm, grid-cell model, GPS effect, adaptive cue policy or smartwatch intervention. The Nature/NHB map is static; it performs no runtime web requests and does not control the Showcase.
+
+## Human analysis levels: claim scope, not inferred neural support
+
+Human navigation is studied at three nested resolutions:
+macro behavioral,
+meso psychometric/cognitive,
+and micro neural/computational.
+
+These levels are complementary rather than hierarchical in scientific validity.
+Neural-computational explanation is optional, not required for behavioral or psychometric studies.
+
+`humanAnalysisLevels` is optional on source, factor and attribution records. It may
+contain one or multiple explicit levels, but absence means undeclared. Current
+Human behavior factors are classified macro; traits/states/psychological
+representations/strategies are meso. No paper inherits these labels from linked
+factors. All eight source records remain level-undeclared because content has not
+been independently accessed. No source verification or support status is upgraded.
+
+| Supplied source scope | Future claim review should distinguish | Current limitation |
+| --- | --- | --- |
+| S1 determinants; S6 historical exposure | Individual differences / context versus observed performance | Broad determinants do not certify a psychometric instrument or neural mechanism |
+| S2 cognitive maps; S3 cue use | Meso knowledge/strategy versus macro cue-use behavior | Cognitive representation language is not by itself measured neural coding |
+| S4 map deformation; S5 neural dynamics | Psychological/computational constructs, behavioral measures and actual neural operationalization | Titles do not establish a specific grid, SR, decoder or Bayesian mechanism |
+| S7 memory reorganization; S8 neural context reliability | Longer-term memory outcomes and any separately evidenced neural representation | Neural reliability cannot be converted to visual salience or a general behavior predictor |
+
+These are review prompts, not verified analysis-level assignments to publications.
+Future macro-only movement studies, meso psychometric studies and optional micro
+mechanistic studies all fit HME. A cross-level paper must justify each link and
+consider competing mechanisms, reverse inference and task/population limits.
+Assistance effects on immediate performance and longer-term learning require
+separate empirical assessment; no direction is assumed.

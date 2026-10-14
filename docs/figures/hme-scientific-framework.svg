@@ -1,150 +1,133 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1160" viewBox="0 0 1600 1160" role="img" aria-labelledby="title desc">
-<title id="title">Candidate multiscale Human–Environment–Machine framework for navigation</title>
-<desc id="desc">Three separate scientific domains, task mobility and history as cross-cutting context, hypothesized interactions and temporal feedback. Arrows are proposed dependencies, not validated causal effects. Source links are based on supplied literature scopes pending independent content verification.</desc>
-<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b74" stroke-width="1.4"/></marker></defs>
-<rect width="1600" height="1160" fill="#fff"/>
-<text x="800" y="43" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="600">
-<tspan x="800" dy="0">Human spatial navigation: a candidate multiscale framework</tspan>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1280" viewBox="0 0 1600 1280" role="img" aria-labelledby="title desc">
+<title id="title">Human–Environment–Machine navigation framework with three complementary Human resolutions</title>
+<desc id="desc">Human macro behavior, meso psychometric cognitive constructs, and a smaller optional micro neural computational level feed dynamic coupling alongside global local immediate Environment and the Machine closed loop. Dashed links are hypotheses, not established causal paths. Neural data are optional.</desc>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#526774" stroke-width="1.4"/></marker></defs>
+<rect width="1600" height="1280" fill="white"/>
+<text x="800" y="44" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="600" fill="#20343f">
+<tspan x="800" dy="0">Human navigation: a candidate H × E × M framework</tspan>
 </text>
-<rect x="85" y="75" width="1430" height="70" rx="9" fill="#eef2f5" stroke="#a9b8bf"/>
-<text x="800.0" y="103.35000000000001" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400">
+<rect x="80" y="75" width="1440" height="70" rx="10" stroke="#a4b5be" fill="#f2f5f6"/>
+<text x="800.0" y="103.35000000000001" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#20343f">
 <tspan x="800.0" dy="0">TASK × MOBILITY × HISTORY</tspan>
-<tspan x="800.0" dy="26.599999999999998">Local events (seconds) · routes (minutes) · learning (days) · exposure and memory (years / decades)</tspan>
+<tspan x="800.0" dy="26.599999999999998">Episodes: seconds / minutes · learning: days · exposure / memory: years / decades</tspan>
 </text>
-<text x="310" y="188" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600">
-<tspan x="310" dy="0">HUMAN</tspan>
+<rect x="80" y="170" width="470" height="590" rx="10" stroke="#a4b5be" fill="#edf5f1"/>
+<text x="315" y="206" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="600" fill="#20343f">
+<tspan x="315" dy="0">HUMAN</tspan>
 </text>
-<rect x="95" y="210" width="430" height="78" rx="9" fill="#edf5f1" stroke="#a9b8bf"/>
-<text x="310.0" y="243.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="310.0" dy="0">Distal / lifetime determinants [S1, S6]</tspan>
-<tspan x="310.0" dy="22.4">Physical, cultural, social and developmental exposure</tspan>
+<rect x="100" y="230" width="430" height="125" rx="10" stroke="#a4b5be" fill="#ffffff"/>
+<text x="315.0" y="261.0" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#20343f">
+<tspan x="315.0" dy="0">MACRO — observable behavior</tspan>
+<tspan x="315.0" dy="25.2">Walking, stopping, route choice</tspan>
+<tspan x="315.0" dy="25.2">Hesitation, backtracking, gaze / head turns</tspan>
+<tspan x="315.0" dy="25.2">Observation ≠ lostness / anxiety</tspan>
 </text>
-<path d="M310 289L310 311" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="95" y="312" width="430" height="78" rx="9" fill="#edf5f1" stroke="#a9b8bf"/>
-<text x="310.0" y="345.40000000000003" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="310.0" dy="0">Traits and capabilities [S1, S3]</tspan>
-<tspan x="310.0" dy="22.4">Personal attributes; navigation traits as placeholders</tspan>
+<rect x="100" y="375" width="430" height="165" rx="10" stroke="#a4b5be" fill="#ffffff"/>
+<text x="315.0" y="413.40000000000003" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#20343f">
+<tspan x="315.0" dy="0">MESO — psychometric / cognitive</tspan>
+<tspan x="315.0" dy="25.2">Stable traits / capabilities: SoD, memory</tspan>
+<tspan x="315.0" dy="25.2">Dynamic states: uncertainty, anxiety, trust</tspan>
+<tspan x="315.0" dy="25.2">Representations: place / route / survey</tspan>
+<tspan x="315.0" dy="25.2">Strategies: egocentric, allocentric, cue use</tspan>
 </text>
-<path d="M310 391L310 413" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="95" y="414" width="430" height="78" rx="9" fill="#edf5f1" stroke="#a9b8bf"/>
-<text x="310.0" y="447.40000000000003" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="310.0" dy="0">Representations and strategies [S2, S3, S7]</tspan>
-<tspan x="310.0" dy="22.4">Context-dependent place / route / survey knowledge</tspan>
+<rect x="120" y="560" width="390" height="100" rx="10" stroke="#a4b5be" fill="#f4f6f5"/>
+<text x="315.0" y="593.2" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400" fill="#20343f">
+<tspan x="315.0" dy="0">MICRO — optional specialist level</tspan>
+<tspan x="315.0" dy="22.4">Neural / computational mechanisms</tspan>
+<tspan x="315.0" dy="22.4">Grid / place / SR / integration: contracts only</tspan>
 </text>
-<path d="M310 493L310 515" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="95" y="516" width="430" height="78" rx="9" fill="#edf5f1" stroke="#a9b8bf"/>
-<text x="310.0" y="549.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="310.0" dy="0">Dynamic latent states [hypotheses]</tspan>
-<tspan x="310.0" dy="22.4">Uncertainty, orientation, anxiety, attention, trust</tspan>
+<text x="315" y="696" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#20343f">
+<tspan x="315" dy="0">Complementary resolutions; no fixed causal chain.</tspan>
+<tspan x="315" dy="23.799999999999997">Macro-only and macro + meso studies fit.</tspan>
 </text>
-<path d="M310 595L310 617" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="95" y="618" width="430" height="78" rx="9" fill="#edf5f1" stroke="#a9b8bf"/>
-<text x="310.0" y="651.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="310.0" dy="0">Observable behavior [S3, S5]</tspan>
-<tspan x="310.0" dy="22.4">Movement, turns, scanning; no automatic lostness label</tspan>
-</text>
-<path d="M310 699L310 730" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<text x="800" y="188" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600">
+<rect x="585" y="170" width="430" height="590" rx="10" stroke="#a4b5be" fill="#f2f4ee"/>
+<text x="800" y="206" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="600" fill="#20343f">
 <tspan x="800" dy="0">ENVIRONMENT</tspan>
 </text>
-<rect x="585" y="210" width="430" height="78" rx="9" fill="#f2f4ee" stroke="#a9b8bf"/>
-<text x="800.0" y="243.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="800.0" dy="0">Historical exposure [S1, S6]</tspan>
-<tspan x="800.0" dy="22.4">Recorded in history, distinct from current setting</tspan>
+<rect x="605" y="230" width="390" height="110" rx="10" stroke="#a4b5be" fill="#fff"/>
+<text x="800.0" y="266.1" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#20343f">
+<tspan x="800.0" dy="0">GLOBAL / MACRO</tspan>
+<tspan x="800.0" dy="25.2">Topology, complexity, route length</tspan>
+<tspan x="800.0" dy="25.2">Connectivity, familiarity</tspan>
 </text>
-<text x="800" y="308" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400">
-<tspan x="800" dy="0">+</tspan>
+<rect x="605" y="365" width="390" height="110" rx="10" stroke="#a4b5be" fill="#fff"/>
+<text x="800.0" y="401.1" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#20343f">
+<tspan x="800.0" dy="0">LOCAL / MESO</tspan>
+<tspan x="800.0" dy="25.2">Junctions, branching, turn geometry</tspan>
+<tspan x="800.0" dy="25.2">Visibility, decision points, accessibility</tspan>
 </text>
-<rect x="585" y="312" width="430" height="78" rx="9" fill="#f2f4ee" stroke="#a9b8bf"/>
-<text x="800.0" y="345.40000000000003" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="800.0" dy="0">Global environment</tspan>
-<tspan x="800.0" dy="22.4">Topology, geometry, familiarity; no universal metric</tspan>
+<rect x="605" y="500" width="390" height="110" rx="10" stroke="#a4b5be" fill="#fff"/>
+<text x="800.0" y="536.0999999999999" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#20343f">
+<tspan x="800.0" dy="0">IMMEDIATE / MICRO</tspan>
+<tspan x="800.0" dy="25.2">Signs, landmarks, blockage, crowd</tspan>
+<tspan x="800.0" dy="25.2">Hazards, lighting, boundaries</tspan>
 </text>
-<path d="M800 391L800 413" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="585" y="414" width="430" height="78" rx="9" fill="#f2f4ee" stroke="#a9b8bf"/>
-<text x="800.0" y="447.40000000000003" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="800.0" dy="0">Local environment at t [S4, S5]</tspan>
-<tspan x="800.0" dy="22.4">Junctions, route segments, visibility, accessibility</tspan>
+<text x="800" y="660" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#20343f">
+<tspan x="800" dy="0">Current Environmentₜ only.</tspan>
+<tspan x="800" dy="23.799999999999997">Historical exposure stays in History.</tspan>
+<tspan x="800" dy="23.799999999999997">Environment demand ≠ Human difficulty.</tspan>
 </text>
-<path d="M800 493L800 515" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="585" y="516" width="430" height="78" rx="9" fill="#f2f4ee" stroke="#a9b8bf"/>
-<text x="800.0" y="549.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="800.0" dy="0">Immediate cues / events at t [S3, S4]</tspan>
-<tspan x="800.0" dy="22.4">Geometry, landmarks, signage, blockage</tspan>
+<rect x="1050" y="170" width="470" height="590" rx="10" stroke="#a4b5be" fill="#edf2f7"/>
+<text x="1285" y="206" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="600" fill="#20343f">
+<tspan x="1285" dy="0">MACHINE / IT</tspan>
 </text>
-<text x="800" y="614" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400">
-<tspan x="800" dy="0">+</tspan>
+<rect x="1070" y="230" width="430" height="78" rx="10" stroke="#a4b5be" fill="#fff"/>
+<text x="1285.0" y="263.05" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#20343f">
+<tspan x="1285.0" dy="0">SENSE</tspan>
+<tspan x="1285.0" dy="23.799999999999997">Observe Human + Environment</tspan>
 </text>
-<rect x="585" y="618" width="430" height="78" rx="9" fill="#f2f4ee" stroke="#a9b8bf"/>
-<text x="800.0" y="651.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="800.0" dy="0">External situational constraints [hypotheses]</tspan>
-<tspan x="800.0" dy="22.4">Time pressure, urgency, hazards and change</tspan>
+<path d="M1285 310L1285 328" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<rect x="1070" y="330" width="430" height="78" rx="10" stroke="#a4b5be" fill="#fff"/>
+<text x="1285.0" y="363.05" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#20343f">
+<tspan x="1285.0" dy="0">ESTIMATE</tspan>
+<tspan x="1285.0" dy="23.799999999999997">Uncertainty + provenance; estimate ≠ state</tspan>
 </text>
-<path d="M800 699L800 730" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<text x="1290" y="188" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600">
-<tspan x="1290" dy="0">MACHINE / IT</tspan>
+<path d="M1285 410L1285 428" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<rect x="1070" y="430" width="430" height="78" rx="10" stroke="#a4b5be" fill="#fff"/>
+<text x="1285.0" y="463.05" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#20343f">
+<tspan x="1285.0" dy="0">DECIDE</tspan>
+<tspan x="1285.0" dy="23.799999999999997">Whether / when / modality / intensity</tspan>
 </text>
-<rect x="1075" y="210" width="430" height="78" rx="9" fill="#edf2f7" stroke="#a9b8bf"/>
-<text x="1290.0" y="243.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="1290.0" dy="0">Technology as exposure [S1]</tspan>
-<tspan x="1290.0" dy="22.4">Use over time; no assumed direction or effect size</tspan>
+<path d="M1285 510L1285 528" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<rect x="1070" y="530" width="430" height="78" rx="10" stroke="#a4b5be" fill="#fff"/>
+<text x="1285.0" y="563.0500000000001" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#20343f">
+<tspan x="1285.0" dy="0">INTERVENE</tspan>
+<tspan x="1285.0" dy="23.799999999999997">Deliver support; capability ≠ support</tspan>
 </text>
-<text x="1290" y="308" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400">
-<tspan x="1290" dy="0">+</tspan>
+<text x="1285" y="660" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400" fill="#20343f">
+<tspan x="1285" dy="0">OBSERVE RESPONSE → ADAPT / ESCALATE</tspan>
+<tspan x="1285" dy="22.4">Macro / meso estimates + spatial context</tspan>
+<tspan x="1285" dy="22.4">Micro inputs optional; no adaptive policy built</tspan>
 </text>
-<rect x="1075" y="312" width="430" height="78" rx="9" fill="#edf2f7" stroke="#a9b8bf"/>
-<text x="1290.0" y="345.40000000000003" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="1290.0" dy="0">Sense Human + Environment</tspan>
-<tspan x="1290.0" dy="22.4">Platforms, sensors and observed signals</tspan>
+<path d="M315 760L315 800" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<path d="M800 760L800 800" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<path d="M1285 760L1285 800" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<path d="M315 800H1285M800 800V825" stroke="#526774" fill="none" stroke-dasharray="5 4" marker-end="url(#a)"/>
+<rect x="205" y="830" width="1190" height="85" rx="10" stroke="#a4b5be" fill="#e6eef0"/>
+<text x="800.0" y="865.5" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#20343f">
+<tspan x="800.0" dy="0">DYNAMIC H × E × M COUPLING / NAVIGATION CHALLENGE</tspan>
+<tspan x="800.0" dy="28.0">H×E · H×M · E×M · H×E×M hypotheses; unassessed construct, no validated score</tspan>
 </text>
-<path d="M1290 391L1290 413" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="1075" y="414" width="430" height="78" rx="9" fill="#edf2f7" stroke="#a9b8bf"/>
-<text x="1290.0" y="447.40000000000003" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="1290.0" dy="0">Estimate state</tspan>
-<tspan x="1290.0" dy="22.4">Uncertainty + provenance; estimate ≠ Human state</tspan>
+<path d="M800 915L800 940" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<rect x="205" y="945" width="1190" height="100" rx="10" stroke="#a4b5be" fill="#f2f5f6"/>
+<text x="800.0" y="975.05" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#20343f">
+<tspan x="800.0" dy="0">BEHAVIOR / PERFORMANCE / SAFETY / EXPERIENCE / LEARNING</tspan>
+<tspan x="800.0" dy="26.599999999999998">Immediate: accuracy, time, efficiency, safety, workload</tspan>
+<tspan x="800.0" dy="26.599999999999998">Longer-term: learning, cognitive maps, retention, dependence, recovery</tspan>
 </text>
-<path d="M1290 493L1290 515" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="1075" y="516" width="430" height="78" rx="9" fill="#edf2f7" stroke="#a9b8bf"/>
-<text x="1290.0" y="549.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="1290.0" dy="0">Decide / intervene [hypothesis contracts]</tspan>
-<tspan x="1290.0" dy="22.4">Whether, when, modality, intensity, escalation</tspan>
+<path d="M800 1045L800 1070" stroke="#526774" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+<rect x="360" y="1075" width="880" height="65" rx="10" stroke="#a4b5be" fill="#f2f5f6"/>
+<text x="800.0" y="1113.8" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#20343f">
+<tspan x="800.0" dy="0">FEEDBACK OVER TIME — proposed Human / Machine / position updates</tspan>
 </text>
-<path d="M1290 595L1290 617" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="1075" y="618" width="430" height="78" rx="9" fill="#edf2f7" stroke="#a9b8bf"/>
-<text x="1290.0" y="651.4" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="1290.0" dy="0">Observe response / adapt [contracts only]</tspan>
-<tspan x="1290.0" dy="22.4">No adaptive policy implemented</tspan>
+<path d="M1240 1107H1555V110H1520" stroke="#526774" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#a)"/>
+<text x="800" y="1180" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400" fill="#20343f">
+<tspan x="800" dy="0">Dashed arrows: candidate dependencies / temporal feedback, not validated causal pathways.</tspan>
 </text>
-<path d="M1290 699L1290 730" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<path d="M310 730H1290M800 730V760" fill="none" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
-<rect x="205" y="765" width="1190" height="80" rx="9" fill="#e6eef0" stroke="#a9b8bf"/>
-<text x="800.0" y="798.0" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400">
-<tspan x="800.0" dy="0">DYNAMIC COUPLING: H×E · H×M · E×M · H×E×M</tspan>
-<tspan x="800.0" dy="28.0">Testable interaction questions and person–environment challenge; no mismatch score</tspan>
+<text x="800" y="1214" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="400" fill="#20343f">
+<tspan x="800" dy="0">Neural explanation is optional. No behavior-to-latent-state or neural inference is automatic.</tspan>
 </text>
-<path d="M800 845V860H485V875" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="210" y="880" width="550" height="80" rx="9" fill="#f1f5f5" stroke="#a9b8bf"/>
-<text x="485.0" y="913.6999999999999" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400">
-<tspan x="485.0" dy="0">Navigation behavior and outcomes</tspan>
-<tspan x="485.0" dy="25.2">Performance · safety · memory · subjective experience</tspan>
-</text>
-<path d="M760 920L835 920" stroke="#596b74" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
-<rect x="845" y="880" width="550" height="80" rx="9" fill="#f1f5f5" stroke="#a9b8bf"/>
-<text x="1120.0" y="913.6999999999999" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400">
-<tspan x="1120.0" dy="0">Proposed updates at t + 1</tspan>
-<tspan x="1120.0" dy="25.2">Human state · Machine policy · position in Environment</tspan>
-</text>
-<path d="M1395 920H1545V110H1515" fill="none" stroke="#596b74" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
-<text x="800" y="1015" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400">
-<tspan x="800" dy="0">Feedback is time-indexed; episode and longitudinal history remain distinct.</tspan>
-</text>
-<text x="800" y="1061" text-anchor="middle" fill="#20343f" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="400">
-<tspan x="800" dy="0">Dashed arrows show candidate dependencies and temporal ordering, not validated causal effects.</tspan>
-</text>
-<text x="800" y="1096" text-anchor="middle" fill="#596b74" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="800" dy="0">S1–S8 refer to the supplied bibliography. Concept links require independent source/content review.</tspan>
-</text>
-<text x="800" y="1127" text-anchor="middle" fill="#596b74" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400">
-<tspan x="800" dy="0">No empirical model, coefficient, intervention effect or neural-to-visual proxy is encoded.</tspan>
+<text x="800" y="1248" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="400" fill="#20343f">
+<tspan x="800" dy="0">Source scope and applicability require review; no model, coefficient or assistance–learning effect is established.</tspan>
 </text>
 </svg>

@@ -88,6 +88,9 @@ export const NAVIGATION_FACTORS:readonly NavigationFactorDefinition[]=GROUPS.fla
   const sources=(group.links?.[name]??[]).map(id=>{const s=sourceById.get(id);if(!s)throw new Error(`Missing source ${id}`);return s;});
   const legacy=group.legacy?.includes(name)??false;
   return {id:`${group.layer}.${group.category}.${name}`,version:'1.0.0',layer:group.layer,category:group.category,
+    // Construct classification only; never inherited by its cited sources.
+    ...(group.layer==='human'&&group.category==='behavior'?{humanAnalysisLevels:['macro-behavior'] as const}:{}),
+    ...(group.layer==='human'&&['navigation-trait','state','representation','strategy'].includes(group.category)?{humanAnalysisLevels:['meso-psychometric-cognitive'] as const}:{}),
     temporalScale:group.temporal,spatialScale:group.spatial,
     observability:group.category==='outcome'&&name==='cognitive-map-fidelity'?'latent':group.observability,
     sources,evidenceClass:sources[0]?.evidenceClass??(legacy?'synthetic':'framework-hypothesis'),

@@ -1,3 +1,4 @@
+import {validateHumanAnalysisLevels} from '../human/analysisLevels';
 import {EVIDENCE_CLASSES,FACTOR_LAYERS,OBSERVABILITIES,type ScientificSource,type NavigationFactorDefinition} from './types';
 import {TEMPORAL_SCALES,SPATIAL_SCALES} from '../navigation/scales';
 import {NAVIGATION_TASKS} from '../navigation/task';
@@ -18,6 +19,7 @@ function freeze<T>(value:T):T {
   return value;
 }
 export function validateScientificSource(s:ScientificSource):void {
+  validateHumanAnalysisLevels(s.humanAnalysisLevels);
   if(!nonblank(s.id)||!nonblank(s.title)||!nonblank(s.authors)||!nonblank(s.journal)||!Number.isInteger(s.year)||s.year<1600||s.year>2200)
     throw new Error('Invalid source bibliographic metadata');
   if(!inSet(s.evidenceClass,EVIDENCE_CLASSES))throw new Error('Invalid evidence class');
@@ -35,6 +37,8 @@ export class NavigationFactorRegistry {
       this.sources.set(source.id,freeze(structuredClone(source)));}
   }
   register(factor:NavigationFactorDefinition):void {
+    validateHumanAnalysisLevels(factor.humanAnalysisLevels);
+    if(factor.layer!=='human'&&factor.humanAnalysisLevels)throw new Error('Human levels belong on Human factors');
     if(!/^[a-z][a-z0-9.-]*$/.test(factor.id)||!/^\d+\.\d+\.\d+$/.test(factor.version)||!nonblank(factor.category))throw new Error('Invalid factor ID/version/category');
     if(!factor.id.startsWith(`${factor.layer}.${factor.category}.`))throw new Error('Factor ID must match its layer and category');
     if(!inSet(factor.layer,FACTOR_LAYERS)||!inSet(factor.observability,OBSERVABILITIES)||!inSet(factor.evidenceClass,EVIDENCE_CLASSES)||

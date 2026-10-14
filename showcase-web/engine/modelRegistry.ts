@@ -1,3 +1,4 @@
+import {validateModelAnalysis} from '../models/analysisMetadata';
 import type {HumanModel} from '../models/human/humanModel';
 import type {EnvironmentModel} from '../models/environment/environmentModel';
 import type {MachinePolicy} from '../models/machine/interventionPolicy';
@@ -10,6 +11,7 @@ export class ModelRegistry {
   register<K extends Layer>(layer:K,model:NoInfer<RegistryModels[K]>):void {
     const {id,version}=model.metadata;
     if(model.metadata.layer!==layer||!id.trim()||!version.trim())throw new Error('Model layer, ID and version must match');
+    validateModelAnalysis(model.metadata.analysis,layer);
     const key=JSON.stringify([id,version]);
     if(this.entries[layer].has(key))throw new Error('Model version already registered');
     this.entries[layer].set(key,model);

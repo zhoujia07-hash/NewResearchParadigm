@@ -1,7 +1,7 @@
 # HME navigation architecture — Nature-informed refinement of V2.2-A
 
-Branch: `v2.2-a-hme-architecture`. Previous architecture commit:
-`7292b534c0a17d760b5554a192c3d166d86dfc9f`.
+Branch: `v2.2-a-hme-architecture`. Base for the Human-resolution refinement:
+`4135e0a94888fc11309e8371587cf0efb5bc4a83` (previous task completed and pushed).
 The public main baseline remains `0fe841ae84c19afe52c19b1c153070cb12c214c4`.
 This is architecture, ontology and evidence provenance only. No concrete V2.2-B
 human model, V2.3 intervention policy, merge, V2 checkpoint or production change.
@@ -14,14 +14,14 @@ or validated predictors. S8 has no supplied DOI; none is invented. The detailed
 [evidence audit](NATURE_NAVIGATION_EVIDENCE.md) distinguishes each source’s supplied
 scope, limitations and implications.
 
-## Figure A — scientific conceptual framework
+## Figure A — scientific conceptual framework (Figure 1)
 
 ![Candidate multiscale Human–Environment–Machine navigation framework](docs/figures/hme-scientific-framework.svg)
 
 This is an early theoretical figure, separate from software structure. Dashed
 arrows indicate candidate dependencies and temporal ordering, **not established
-causal effects**. S1–S8 identify the supplied bibliography, not validation of this
-framework. The framework asks how Human × Environment × Machine × Task/Mobility ×
+causal effects**. The accompanying S1–S8 bibliography supplies conceptual context,
+not validation of this framework. The framework asks how Human × Environment × Machine × Task/Mobility ×
 History could jointly shape navigation. It does not implement `Outcome = H + E + M`,
 a universal weighted score, an answer to an interaction question, or an effect size.
 
@@ -31,6 +31,105 @@ current global context, local conditions at t, and immediate cues/events at t.
 Technology as exposure is distinct from the machine’s observation/action loop.
 Behavior, performance, safety, memory and subjective outcomes are distinct from
 proposed updates to Human state, policy and position at t+1.
+
+## Human: three nested scientific resolutions
+
+Human navigation is studied at three nested resolutions:
+macro behavioral,
+meso psychometric/cognitive,
+and micro neural/computational.
+
+These levels are complementary rather than hierarchical in scientific validity.
+Neural-computational explanation is optional, not required for behavioral or psychometric studies.
+
+All three levels belong inside **Human**. Micro is its finest resolution, not the
+central theory of HME. A macro-only study or macro + meso study is complete without
+neural data. The earlier determinants/traits/states/strategies/behavior taxonomy
+continues to apply within this resolution scheme; historical determinants are
+cross-cutting background, not a fourth analysis level.
+
+| Human resolution | Scientific content | Boundary |
+| --- | --- | --- |
+| Macro observable behavior | Walking/speed, acceleration/deceleration, stopping/pause duration, hesitation, route choice/deviation, wrong turns, backtracking/detours, path tortuosity, turn execution, head/body rotation, gaze/scanning, reorientation, device checking, help seeking | A kinematic marker does not automatically measure lostness or anxiety |
+| Meso psychometric/cognitive | Stable SoD, anxiety trait, memory, navigation experience, cognitive/mobility capability, technology familiarity, vulnerability; dynamic uncertainty, lostness/disorientation, anxiety, confidence, workload, attention, fatigue, trust, orientation; place/route/survey knowledge and ego-/allocentric, landmark/geometry/route strategies | Traits, states and representations/strategies retain distinct contracts; a Machine estimate is not a Human latent state |
+| Micro neural/computational (optional) | Grid/place-cell-like representations, successor representations, predictive maps, boundary anchoring, path integration, grid scale/orientation/regularity, coding distortion, decoding error, neural uncertainty, Bayesian/precision-weighted integration | Specialist vocabulary and optional description types only; no model, neural data or mandatory explanatory theory |
+
+`HumanAnalysisLevel` uses `macro-behavior`, `meso-psychometric-cognitive`, and
+`micro-neural-computational`. `HumanAnalysisRecord` is discriminated by level;
+`NeuralComputationalDescription` cannot substitute for psychological states or
+behavior observations. Psychological path-integration strategy at meso is distinct
+from a proposed computational implementation at micro.
+
+`CrossLevelHumanHypothesis` supports top-down, bottom-up inference, reciprocal
+relationships and competing mechanism IDs. For example, a *possible* map-distortion
+→ uncertainty → hesitation/backtracking → performance pathway is a research question,
+not an encoded causal chain. Reverse inference from hesitation cannot establish
+a particular neural mechanism. No cross-level inference executes in this stage.
+
+### Future project-paper examples (illustrative, not existing evidence)
+
+| Possible research paper / model | Human levels | Other context / evaluation |
+| --- | --- | --- |
+| LostnessBehaviorModel using movement markers | Macro | Test marker validity against separately collected references; its name does not make lostness observed |
+| SenseOfDirectionModel / SpatialAnxietyModel | Meso | Use reviewed psychometrics and explicit task/population applicability |
+| Navigation-assistance study with movement and questionnaire data | Macro + meso | H×E×M intervention timing/modality; immediate safety and longer-term learning evaluated separately |
+| GridRepresentationModel / SuccessorRepresentationModel | Micro (optional) | Specialist neural/computational operationalization and evidence required |
+| Competing mechanisms for uncertainty and backtracking | Micro + meso + macro | Compare hypotheses; no causal pathway or empirical result assumed |
+
+### Alignment across domains
+
+Environment retains **global/macro**, **local/meso**, **immediate/micro** spatial
+scales. Global covers indoor/outdoor topology, structural complexity, connectivity,
+route length and familiarity. Local covers junctions/branching/turn geometry,
+visibility, decision points and accessibility. Immediate covers visible
+signs/landmarks, blockage/ambiguity, crowd/hazards, lighting and doorway/boundary.
+These spatial resolutions are not Human analysis levels. Historical environmental
+exposure stays in longitudinal History, separate from current EnvironmentState.
+
+Machine / IT follows **sense → estimate → decide → intervene → observe response
+→ adapt/escalate**. Inputs can be macro observations, meso state estimates and
+global/local/immediate environmental context. Micro signals are optional.
+`MachineResearchInputs` declares possible research inputs only, without changing
+policy execution. Environmental demand is not Human difficulty, Machine support
+is not Human capability, and navigation outcome is not behavior.
+
+### Research programmes and outcome horizons
+
+- **Human:** who encounters difficulty and why? Study traits, states, behavior and optional mechanisms.
+- **Environment:** which spatial/information properties change demand? Study scale, geometry, cues, salience and time pressure.
+- **Machine / IT:** how should sensing, estimation and intervention timing/modality/intensity/escalation support navigation?
+- **H×E×M:** which intervention works for which person, in which environment, at which moment?
+
+`ResearchNavigationOutcome` discriminates immediate accuracy/time/path length/
+efficiency/safety/workload from longer-term learning, cognitive-map formation,
+skill retention, technology dependence and recovery after technology failure.
+Episode and longitudinal windows remain distinct. More assistance may help, harm
+or leave learning unchanged; this is an empirical question, not a coded assumption.
+Dynamic Navigation Challenge remains unassessed with no validated numerical score.
+
+### Analysis metadata and registry
+
+Optional `ModelMetadata.analysis` declares a scientific `domain` (human,
+environment, machine, coupling), one or more `analysisLevels`, and optionally
+`humanAnalysisLevels`. The analysis vocabulary includes behavioral,
+psychometric-cognitive, neural-computational, environmental-global/local/immediate,
+and machine-sensing/estimation/policy/intervention. A model may span multiple
+levels. Existing registrations need no new fields. Runtime namespaces still use
+human/environment/machine/estimator; estimator maps to scientific Machine.
+Coupling is scientific organization metadata, not a new executable registry port.
+Validation rejects invalid or inconsistent declared levels without selecting or
+executing models or endorsing empirical validity.
+
+Sources, factor definitions and attributions may optionally declare
+`humanAnalysisLevels`. Absence means **undeclared**, never all levels. Existing
+behavior factors explicitly classify as macro, and navigation traits, states,
+representations and strategies as meso. Other factors remain unclassified where
+resolution would be ambiguous. No cited paper inherits a factor's classification;
+all eight existing sources remain level-undeclared pending claim-specific content
+review. A single reviewed source may later declare multiple levels with an explicit
+scope. Classification is not an evidence upgrade: no psychometric construct or
+neural mechanism follows from behavior alone. The 233-factor evidence statuses,
+source verification limitations and zero empirical implementations are unchanged.
 
 ## Scientific Human taxonomy
 
@@ -199,9 +298,9 @@ Nature/NHB predictors by this source set. No project empirical paper is invented
 
 ```mermaid
 flowchart TD
-  Sources[Static source metadata + factor ontology] --> FR[NavigationFactorRegistry]
-  FR -. future attribution only .-> MR[ModelRegistry: layer + ID + version]
-  H[Human contracts] --> SS[SystemState]
+  Sources[Static evidence + optional Human analysis levels] --> FR[NavigationFactorRegistry]
+  FR -. future attribution only .-> MR[ModelRegistry: layer + ID + version + optional domain / analysis levels]
+  H[Human contracts: macro / meso / optional micro] --> SS[SystemState]
   E[Environment contracts] --> SS
   M[Machine contracts] --> SS
   R[Task / mobility / episodic and longitudinal history] -. optional research context .-> CE[Injected coupling engine]
@@ -248,9 +347,10 @@ They establish no effect of SoD, anxiety, complexity, phone/watch cues or drivin
 
 ```text
 models/
-  human/{types,defaults,humanModel,navigationScience,outcomes}.ts
+  human/{types,defaults,humanModel,navigationScience,outcomes,analysisLevels,multilevel}.ts
   environment/{types,defaults,environmentModel,navigationScience}.ts
   machine/{types,defaults,interventionPolicy,navigationScience}.ts
+  analysisMetadata.ts
   mobility/types.ts
   navigation/{scales,task,history}.ts
   evidence/{types,scientificSources,navigationEvidence,navigationFactorRegistry}.ts
@@ -283,7 +383,7 @@ are preserved separately from regenerated QA images. No Vercel settings change.
 Stop for human **scientific** review on the same branch. Do not merge, modify V1,
 create V2 tags, start concrete V2.2-B models, or implement V2.3 intervention.
 
-Verified for this refinement: installation, TypeScript, **35 frontend tests**,
+Verified for this refinement: installation, TypeScript, **41 frontend tests**,
 production build, both real-browser suites (retained V1/2D and 3D), and **32 Python
 regressions** pass. Browser checks cover all eight residents, cameras, emerging
 hesitation/backtracking, crisis/block/freeze, A/85 safe West arrival, B unsafe/C

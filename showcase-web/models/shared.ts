@@ -1,3 +1,4 @@
+import type {ModelAnalysisMetadata} from './analysisMetadata';
 import type {ScientificAttribution} from './evidence/types';
 /** Provenance is a declaration, never a certificate of empirical validity. */
 export type EvidenceBasis = 'scripted' | 'configuration' | 'measurement' | 'model-output';
@@ -22,6 +23,7 @@ export interface ModelMetadata<L extends ModelLayer = ModelLayer> {
   readonly id: string;
   readonly version: string;
   readonly layer: L;
+  readonly analysis?:ModelAnalysisMetadata;
   readonly evidence: 'structural' | 'prototype' | 'synthetic' | 'empirical';
   readonly description: string;
   readonly citation?: string;

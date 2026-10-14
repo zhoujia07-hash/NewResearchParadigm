@@ -1,3 +1,4 @@
+import type {HumanAnalysisLevel} from '../human/analysisLevels';
 import type {TemporalScale,SpatialScale} from '../navigation/scales';
 import type {NavigationTaskType} from '../navigation/task';
 import type {MobilityMode} from '../mobility/types';
@@ -9,6 +10,8 @@ export const OBSERVABILITIES=['observed','latent','historical','context'] as con
 export type Observability=typeof OBSERVABILITIES[number];
 export type FactorEvidenceStatus='source-linked-concept'|'direct-source-support'|'project-empirical'|'framework-placeholder'|'synthetic'|'unknown';
 export interface ScientificSource {
+  /** Explicit scoped declaration only; absent means undeclared, not neural evidence. */
+  readonly humanAnalysisLevels?:readonly HumanAnalysisLevel[];
   readonly id:string;readonly authors:string;readonly title:string;readonly journal:string;readonly year:number;
   readonly volume?:string;readonly pages?:string;readonly doi?:string;readonly url?:string;readonly evidenceClass:EvidenceClass;
   readonly verification:{readonly metadata:'project-owner-supplied'|'publisher-verified'|'crossref-verified';
@@ -16,10 +19,14 @@ export interface ScientificSource {
   readonly suppliedScope:readonly string[];
 }
 export interface ScientificAttribution {
+  /** Explicit scoped declaration only; absent means undeclared, not neural evidence. */
+  readonly humanAnalysisLevels?:readonly HumanAnalysisLevel[];
   readonly factorIds:readonly string[];readonly sourceIds:readonly string[];readonly evidenceClass:EvidenceClass;
   readonly claimScope:string;
 }
 export interface NavigationFactorDefinition {
+  /** Explicit scoped declaration only; absent means undeclared, not neural evidence. */
+  readonly humanAnalysisLevels?:readonly HumanAnalysisLevel[];
   readonly id:string;readonly version:string;readonly layer:FactorLayer;readonly category:string;
   readonly temporalScale:readonly TemporalScale[];readonly spatialScale:readonly SpatialScale[];
   readonly observability:Observability;readonly sources:readonly ScientificSource[];
