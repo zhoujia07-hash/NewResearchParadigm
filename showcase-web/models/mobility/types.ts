@@ -5,4 +5,6 @@ export type MobilityMode =
   | {readonly kind:'cycling'; readonly cycleId?:string}
   | {readonly kind:'wheelchair'; readonly powered?:boolean}
   | {readonly kind:'public-transit'; readonly serviceId?:string}
+  | {readonly kind:'imagined-navigation'}
+  | {readonly kind:'stationary-route-planning'}
   | {readonly kind:'other'; readonly name:string};

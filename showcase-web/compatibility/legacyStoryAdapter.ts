@@ -29,7 +29,8 @@ export class LegacyStoryAdapter {
       const assessment=assess(input); // Delegation, not a duplicated formula or policy.
       diagnostics[resident.id]={inputs:{...input},score:assessment.score,requiresReview:assessment.escalated,
         triggeredRules:RULE_NAMES.filter((_,i)=>assessment.rules[i]),provenance:SCRIPT};
-      humanEstimates.push({target:'human',targetId:resident.id,variable:'navigation-confidence',value:specifiedValue(input.navigationConfidence,SCRIPT)});
+      humanEstimates.push({kind:'machine-estimate',target:'human',targetId:resident.id,variable:'navigation-confidence',value:specifiedValue(input.navigationConfidence,SCRIPT),
+        uncertainty:{kind:'unknown',reason:'No calibrated uncertainty supplied by the legacy script'},provenance:SCRIPT});
       const pose=avatarPose(story,index);
       const observations:BehaviorObservation[]=[{type:pose.walking?'walking':'stopping',atSeconds:story.elapsed,provenance:ART}];
       if(pose.looking!==0)observations.push({type:'looking-around',atSeconds:story.elapsed,provenance:ART});
@@ -53,7 +54,8 @@ export class LegacyStoryAdapter {
         id:modality,modality,targets:['human'],observation:isBlocked?specifiedValue(`R06: ${place}`,SCRIPT):{kind:'unknown',reason:'No sensor reading supplied by the Story'},
       })),
       capabilities:['human-takeover'],
-      detection:{human:humanEstimates,environment:[{target:'environment',targetId:'East Exit',variable:'route-blockage',value:specifiedValue(isBlocked,SCRIPT)}],diagnostics},
+      detection:{human:humanEstimates,environment:[{kind:'machine-estimate',target:'environment',targetId:'East Exit',variable:'route-blockage',value:specifiedValue(isBlocked,SCRIPT),
+        uncertainty:{kind:'unknown',reason:'Scripted evidence, not a calibrated detector'},provenance:SCRIPT}],diagnostics},
       decision:{status:story.choice?'selected':needsHuman?'awaiting-human':'none',source:story.choice?'operator':'prototype',intervention,
         reason:story.choice?'Viewer-selected action':needsHuman?'Existing Story escalation':'No Story intervention'},
       interaction:{phase:story.stage==='human'?'await-human':story.stage==='crisis'?'decide':story.stage==='recovery'?'intervene':

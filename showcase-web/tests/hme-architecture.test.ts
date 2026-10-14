@@ -175,7 +175,8 @@ test('Default pass-through composition cannot auto-select a human action or infe
   const system=deepFreeze(legacyStoryAdapter.snapshot(skipStory()).system);
   const result=createCouplingEngine({human:legacyHumanModel,environment:legacyEnvironmentModel,estimator:unspecifiedStateEstimator,machine:prototypePolicy}).evaluate({system,history:[]});
   assert.equal(result.decision.status,'awaiting-human');assert.equal(result.decision.intervention?.id,'human-review');
-  assert.equal(system.machine.interaction.operatorResponse,null);assert.equal(result.humanStates[5].states.lostness.kind,'unknown');
+  assert.equal(system.machine.interaction.operatorResponse,null);assert.equal(result.humanEstimates[5].value.kind,'unknown');
+  assert.equal(result.humanEstimates[5].kind,'machine-estimate');assert.equal(system.humans[5].states.lostness.kind,'unknown');
 });
 
 function files(root:string):string[]{return readdirSync(root,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(join(root,e.name)):/\.tsx?$/.test(e.name)?[join(root,e.name)]:[]);}

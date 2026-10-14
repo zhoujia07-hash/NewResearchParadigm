@@ -1,18 +1,19 @@
 import type {HumanModel} from '../models/human/humanModel';
 import type {EnvironmentModel} from '../models/environment/environmentModel';
 import type {MachinePolicy} from '../models/machine/interventionPolicy';
-import type {HumanBehaviorProposal,HumanStateProposal} from '../models/human/types';
+import type {HumanBehaviorProposal} from '../models/human/types';
 import type {EnvironmentState} from '../models/environment/types';
-import type {MachineDecision} from '../models/machine/types';
+import type {MachineDecision,HumanStateEstimate} from '../models/machine/types';
 import type {Provenance} from '../models/shared';
 import type {StateEstimator} from './stateEstimator';
 import type {SystemState} from './simulationState';
+import type {NavigationResearchContext} from './navigationResearch';
 
-export interface CouplingContext {readonly system:SystemState;readonly history:readonly SystemState[]}
+export interface CouplingContext {readonly system:SystemState;readonly history:readonly SystemState[];readonly research?:NavigationResearchContext}
 export interface ModelEvaluations {
   readonly behaviors:readonly HumanBehaviorProposal[];
   readonly environment:EnvironmentState;
-  readonly humanStates:readonly HumanStateProposal[];
+  readonly humanEstimates:readonly HumanStateEstimate[];
 }
 export interface OutcomeProposal {readonly targetId:string;readonly name:string;readonly value:string|number|boolean;readonly provenance:Provenance}
 export interface AdaptationProposal {readonly targetId:string;readonly description:string;readonly provenance:Provenance}
@@ -33,8 +34,8 @@ export function createCouplingEngine(modules:CouplingModules):CouplingEngine {
   return {evaluate(context){
     const environment=modules.environment.evaluateEnvironment(context);
     const behaviors=modules.human.evaluateHumanBehavior(context);
-    const humanStates=modules.estimator.evaluateHumanState(behaviors,context);
-    const evaluations={environment,behaviors,humanStates};
+    const humanEstimates=modules.estimator.evaluateHumanState(behaviors,context);
+    const evaluations={environment,behaviors,humanEstimates};
     return {...evaluations,decision:modules.machine.selectMachineIntervention(context,evaluations),outcomes:[],adaptations:[]};
   }};
 }

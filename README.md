@@ -832,3 +832,16 @@ the validity of any specific human, environmental, or intervention model.
 
 This work is on `v2.2-a-hme-architecture` for human review, without promotion to
 main, production or a V2 stable checkpoint.
+
+### Nature-informed V2.2-A refinement
+
+The same review branch now includes a multi-scale scientific ontology, separate
+conceptual and software figures, explicit strategies/history/interaction
+contracts, and static evidence provenance. See [HME architecture](HME_ARCHITECTURE.md),
+[Nature/NHB evidence audit](NATURE_NAVIGATION_EVIDENCE.md), and the
+[complete factor index](docs/navigation-factor-index.md).
+The eight citations/scopes were supplied by the project owner; publisher/DOI/
+Crossref access was blocked here, so independent content verification remains
+pending. Source-linked concepts are not validated models or predictors. This
+framework does not control the existing Showcase, and no empirical or adaptive
+model is added.

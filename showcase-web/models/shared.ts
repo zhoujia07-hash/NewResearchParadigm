@@ -1,3 +1,4 @@
+import type {ScientificAttribution} from './evidence/types';
 /** Provenance is a declaration, never a certificate of empirical validity. */
 export type EvidenceBasis = 'scripted' | 'configuration' | 'measurement' | 'model-output';
 export interface Provenance {
@@ -5,6 +6,7 @@ export interface Provenance {
   readonly source: string;
   readonly note?: string;
   readonly citation?: string;
+  readonly scientific?:ScientificAttribution;
 }
 export type EvidenceValue<T> =
   | {readonly kind: 'unknown'; readonly reason: string}
@@ -23,4 +25,5 @@ export interface ModelMetadata<L extends ModelLayer = ModelLayer> {
   readonly evidence: 'structural' | 'prototype' | 'synthetic' | 'empirical';
   readonly description: string;
   readonly citation?: string;
+  readonly scientific?:ScientificAttribution;
 }

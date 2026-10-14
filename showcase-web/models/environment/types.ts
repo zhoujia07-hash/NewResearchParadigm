@@ -1,4 +1,5 @@
 import type {EvidenceValue, Extensions, Provenance, ResearchLevel} from '../shared';
+import type {MultiScaleEnvironment} from './navigationScience';
 export interface PhysicalContext {
   readonly kind:'physical';
   readonly setting:'indoor'|'outdoor'|'mixed'|'unspecified';
@@ -57,4 +58,5 @@ export interface EnvironmentState {
   readonly information:InformationEnvironment;
   readonly situational:SituationalContext;
   readonly extensions:Extensions;
+  readonly navigationContext?:MultiScaleEnvironment;
 }

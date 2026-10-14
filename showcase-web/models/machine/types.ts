@@ -1,4 +1,5 @@
 import type {EvidenceValue, Extensions, Provenance} from '../shared';
+import type {AdaptiveMachineContract} from './navigationScience';
 export type PlatformType = 'smartphone'|'smartwatch'|'vehicle-system'|'ar-glasses'|'robot'|'kiosk'|'ambient-building-system';
 export type SensorModality = 'gps'|'imu'|'camera'|'ble'|'uwb'|'gaze'|'wearable-physiology'|'vehicle-sensor';
 export type InterventionModality = 'map'|'arrow'|'text'|'voice'|'vibration'|'landmark-cue'|'ar-overlay'|'dialogue'|'confirmation'|'feedback'|'human-takeover';
@@ -9,9 +10,15 @@ export interface SensingChannel {
   readonly observation:EvidenceValue<string>;
 }
 export interface StateEstimate {
+  readonly kind:'machine-estimate';
   readonly target:'human'|'environment';readonly targetId:string;readonly variable:string;
   readonly value:EvidenceValue<number|string|boolean>;
+  readonly uncertainty:EstimateUncertainty;readonly provenance:Provenance;
 }
+export type EstimateUncertainty={readonly kind:'unknown';readonly reason:string}|
+  {readonly kind:'reported';readonly representation:'interval'|'probability'|'standard-error'|'model-specific';
+    readonly values:readonly number[];readonly provenance:Provenance;readonly scale:string};
+export interface HumanStateEstimate extends StateEstimate {readonly target:'human'}
 export interface PrototypeDiagnostic {
   readonly inputs:Readonly<Record<string,number>>;
   readonly score:number;
@@ -53,4 +60,8 @@ export interface MachineState {
   readonly decision:MachineDecision;
   readonly interaction:MachineInteraction;
   readonly extensions:Extensions;
+  /** Role A references canonical longitudinal exposure records, not active policy. */
+  readonly exposureHistoryIds?:readonly string[];
+  /** Role B specification only; no adaptive implementation is supplied. */
+  readonly adaptiveContract?:AdaptiveMachineContract;
 }

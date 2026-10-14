@@ -1,4 +1,7 @@
 import type {EvidenceValue, Extensions, Provenance, ResearchLevel} from '../shared';
+import type {HumanDeterminants,NavigationRepresentations} from './navigationScience';
+import type {NavigationOutcome} from './outcomes';
+import type {EpisodeWindow} from '../navigation/scales';
 
 /** Stable characteristics. No default SoD/anxiety/cognitive scores are invented. */
 export interface HumanTraits {
@@ -25,16 +28,21 @@ export interface HumanStates {
   readonly attention:EvidenceValue<number>;
   readonly confidence:EvidenceValue<number>;
   readonly trust:EvidenceValue<number>;
+  /** Conceptual Human orientation, never a Machine estimate of that orientation. */
+  readonly orientationState?:EvidenceValue<string>;
   readonly extensions:Extensions;
 }
 export type BehaviorType = 'walking'|'stopping'|'walking-speed'|'turning'|'head-turning'|
-  'looking-around'|'hesitation'|'backtracking'|'wrong-turn'|'detour'|'body-rotation'|'checking-phone'|'asking-for-help';
+  'looking-around'|'hesitation'|'backtracking'|'wrong-turn'|'detour'|'body-rotation'|'checking-phone'|'asking-for-help'|
+  'acceleration'|'deceleration'|'pause-duration'|'head-rotation'|'gaze-scanning'|'reorientation'|'turn-execution'|'route-deviation'|'path-tortuosity'|'route-choice';
 /** Observable actions, with provenance distinguishing scripted from measured. */
 export interface BehaviorObservation {
   readonly type:BehaviorType;
   readonly atSeconds:number;
   readonly provenance:Provenance;
   readonly magnitude?:{readonly value:number; readonly unit:string};
+  readonly id?:string;readonly sequenceId?:string;readonly durationSeconds?:number;
+  readonly environmentEventIds?:readonly string[];
 }
 export interface HumanBehaviors {
   readonly kind:'behaviors';
@@ -44,11 +52,16 @@ export interface HumanProfile {
   readonly id:string;
   readonly label:string;
   readonly traits:HumanTraits;
+  readonly determinants?:HumanDeterminants;
 }
 export interface HumanSnapshot {
   readonly profile:HumanProfile;
   readonly states:HumanStates;
   readonly behaviors:HumanBehaviors;
+  readonly representations?:readonly NavigationRepresentations[];
+  readonly outcomes?:readonly NavigationOutcome[];
 }
+export interface BehaviorSequence {readonly kind:'behavior-sequence';readonly id:string;readonly humanId:string;
+  readonly window:EpisodeWindow;readonly observations:readonly BehaviorObservation[]}
 export interface HumanBehaviorProposal {readonly humanId:string; readonly behaviors:HumanBehaviors}
 export interface HumanStateProposal {readonly humanId:string; readonly states:HumanStates}
