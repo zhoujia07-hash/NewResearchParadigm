@@ -1,6 +1,10 @@
 'use client';
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useMemo,useRef,useState} from 'react';
 import {initialStory,startStory,skipStory,submit,tick,frozen,type Story,type Choice} from '@/lib/story';
+import {legacyStoryAdapter} from '@/compatibility/legacyStoryAdapter';
+import {presentHuman} from '@/presentation/adapters/humanPresentation';
+import {presentEnvironment} from '@/presentation/adapters/environmentPresentation';
+import {presentMachine} from '@/presentation/adapters/machinePresentation';
 import {spatialLocation} from '@/lib/navigationModel';
 import type {ViewMode} from '@/types/environment';
 import SceneViewport from '@/components/scene/SceneViewport';
@@ -14,6 +18,9 @@ export default function Page(){
  const [story,setStory]=useState<Story>(initialStory),[choice,setChoice]=useState<Choice|null>(null);
  const [confidence,setConfidence]=useState(85),[selected,setSelected]=useState(5),[reduced,setReduced]=useState(false);
  const [view,setView]=useState<ViewMode>('3d');
+ const snapshot=useMemo(()=>legacyStoryAdapter.snapshot(story),[story]);
+ const environmentView=presentEnvironment(snapshot),machineView=presentMachine(snapshot);
+ const humanView=presentHuman(snapshot,selected,view==='3d'?spatialLocation(story,selected,reduced):undefined);
  const last=useRef<number|null>(null);
  useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)');
   const update=()=>setReduced(media.matches);update();media.addEventListener('change',update);
@@ -38,11 +45,11 @@ export default function Page(){
     <section className="experience" aria-label="Guided simulation">
       <StoryControls story={story} onStart={()=>restart(true)} onPause={pauseResume} onSkip={()=>restart(false,true)} onReset={()=>restart()}/>
       <div className="stage-layout">
-      <div className="workspace"><SceneViewport story={story} selected={selected} reduced={reduced} onSelect={setSelected} view={view} onView={setView}/><ResidentProfile story={story} selected={selected} location={view==='3d'?spatialLocation(story,selected,reduced):undefined}/></div>
+      <div className="workspace"><SceneViewport story={environmentView.story} selected={selected} reduced={reduced} onSelect={setSelected} view={view} onView={setView}/><ResidentProfile presentation={humanView}/></div>
       <HumanDecision story={story} choice={choice} confidence={confidence} onChoice={setChoice} onConfidence={setConfidence} onSubmit={decide}/>
       </div>
-      <SystemStatus story={story}/>
-      <CollaborationResult story={story}/>
+      <SystemStatus presentation={machineView}/>
+      <CollaborationResult presentation={machineView}/>
     </section>
     <p className="spatial-caution">3D avatar behavior in V2.1 is a scripted visualization of the existing prototype logic, not an empirically validated human navigation model.</p>
     <footer><p><b>Simulated demonstration.</b> No real human behavioral evidence, validated AI superiority or validated Concordia behavior is implied.</p><p>Session-only experience · No API calls, account or participant data collection</p></footer>

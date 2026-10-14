@@ -817,3 +817,18 @@ and is not an empirically validated model of human navigation.
 ![V2.1-B frozen scene and human takeover](screenshots/37-v2-1-b-human-takeover.png)
 
 ![V2.1-B A/85 West Exit result](screenshots/39-v2-1-b-recovery-west-exit.png)
+
+## V2.2-A — Human–Machine–Environment architecture (review branch)
+
+[HME_ARCHITECTURE.md](HME_ARCHITECTURE.md) documents the separate Human,
+Environment, Machine/IT and Mobility types, coupling/model-replacement contracts,
+versioned ModelRegistry, legacy Story compatibility, and three future research
+configurations. The existing Showcase still runs the unchanged Story engine.
+Unknown human states remain unknown; no empirical or adaptive model is added.
+
+The Human–Machine–Environment architecture defines modular interfaces for
+integrating future empirical models. The architecture itself does not establish
+the validity of any specific human, environmental, or intervention model.
+
+This work is on `v2.2-a-hme-architecture` for human review, without promotion to
+main, production or a V2 stable checkpoint.
