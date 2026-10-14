@@ -22,14 +22,14 @@ export default function SceneViewport({story,selected,reduced,onSelect,view,onVi
  const isBlocked=blocked(story),isFrozen=frozen(story);
  function fail(){setUnavailable(true);onView('2d');}
  return <div className="map-panel" data-view={view} data-camera={cameraMode}>
-  <div className="map-top"><span><b>THE BUILDING</b> / {view==='3d'?'3D spatial world · V2.1':'V1 schematic reference'}</span><span className={`live-state ${isBlocked&&!story.choice?'danger':''}`}><span className="dot"/>{story.stage==='idle'?'Ready to explore':story.stage==='result'?'Simulation complete':isFrozen?'Simulation frozen':'Simulation active'}</span></div>
+  <div className="map-top"><span><b>THE BUILDING</b> / {view==='3d'?'Modern Hospital · V2.1-B':'V1 schematic reference'}</span><span className={`live-state ${isBlocked&&!story.choice?'danger':''}`}><span className="dot"/>{story.stage==='idle'?'Ready to explore':story.stage==='result'?'Simulation complete':isFrozen?'Simulation frozen':'Simulation active'}</span></div>
   <SceneControls unavailable={unavailable} view={view} onView={v=>{onView(v);if(v==='3d')setUnavailable(false);}} cameraMode={cameraMode} onCamera={setCameraMode} selected={selected} onSelect={onSelect} story={story}/>
   {unavailable&&<p className="scene-fallback" role="status">3D is unavailable in this browser. The 2D view uses the same story and decisions.</p>}
   {view==='3d'?<><div className="scene-3d" data-testid="scene-3d">
     {ready&&<SceneBoundary onFailure={fail}><Environment3D story={story} selected={selected} reduced={reduced} compact={compact} cameraMode={cameraMode} onSelect={onSelect}/></SceneBoundary>}
     {isBlocked&&!story.choice&&<div className="pause-overlay"><span className="pause-icon" aria-hidden><svg width="18" height="22" viewBox="0 0 18 22"><rect x="1" y="2" width="5" height="18" rx="1" fill="currentColor"/><rect x="12" y="2" width="5" height="18" rx="1" fill="currentColor"/></svg></span><div><strong>AUTOMATION PAUSED</strong><span>HUMAN-IN-THE-LOOP REQUIRED</span></div></div>}
    </div><div className="scene-legend"><span><i className="dot green"/> Ordinary / stable</span><span><i className="dot amber"/> Emerging uncertainty</span><span><i className="dot red"/> Critical / human judgment</span><span>Click an avatar or select its ID. R06 uses a walker.</span></div>
-   <p className="scene-note">Cutaway architecture · Openings connect corridors · Status rings indicate risk, not skin or clothing colors{reduced?' · Reduced motion: no continuous follow camera':''}</p>
+   <p className="scene-note">3D avatar behavior is a scripted visualization of the prototype state machine and is not an empirically validated model of human navigation. Cutaway architecture · Openings connect corridors · Status rings indicate risk, not skin or clothing colors{reduced?' · Reduced motion: no continuous follow camera':''}</p>
   </>:<Schematic2D story={story} selected={selected} reduced={reduced} onSelect={onSelect}/>}
  </div>;
 }

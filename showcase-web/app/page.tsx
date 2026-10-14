@@ -37,9 +37,11 @@ export default function Page(){
     </section>
     <section className="experience" aria-label="Guided simulation">
       <StoryControls story={story} onStart={()=>restart(true)} onPause={pauseResume} onSkip={()=>restart(false,true)} onReset={()=>restart()}/>
+      <div className="stage-layout">
       <div className="workspace"><SceneViewport story={story} selected={selected} reduced={reduced} onSelect={setSelected} view={view} onView={setView}/><ResidentProfile story={story} selected={selected} location={view==='3d'?spatialLocation(story,selected,reduced):undefined}/></div>
-      <SystemStatus story={story}/>
       <HumanDecision story={story} choice={choice} confidence={confidence} onChoice={setChoice} onConfidence={setConfidence} onSubmit={decide}/>
+      </div>
+      <SystemStatus story={story}/>
       <CollaborationResult story={story}/>
     </section>
     <p className="spatial-caution">3D avatar behavior in V2.1 is a scripted visualization of the existing prototype logic, not an empirically validated human navigation model.</p>

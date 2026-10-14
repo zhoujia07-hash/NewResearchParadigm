@@ -1,52 +1,63 @@
 'use client';
 import {useRef} from 'react';
 import {useFrame} from '@react-three/fiber';
-import {Group,MathUtils} from 'three';
-import {avatarPose} from '@/lib/navigationModel';
+import {Group,Mesh,Color,MathUtils} from 'three';
 import {RESIDENTS,frozen,residentColor} from '@/lib/story';
-import {OUTFITS,STATUS_COLORS} from '@/lib/environmentModel';
-import TextLabel from './TextLabel';
-import type {SceneProps} from '@/types/environment';
-function Limb({side,kind}:{side:number;kind:'leg'|'arm'}){
- return <group name={kind+side} position={[side*(kind==='leg'?.12:.25),kind==='leg'?.87:1.27,0]}>
-  <mesh position={[0,kind==='leg'?-.34:-.27,0]} castShadow><boxGeometry args={kind==='leg'?[.13,.63,.15]:[.11,.5,.13]}/><meshStandardMaterial color={kind==='leg'?'#354954':'#d2a990'}/></mesh>
-  {kind==='leg'&&<mesh position={[0,-.68,.045]} castShadow><boxGeometry args={[.17,.12,.29]}/><meshStandardMaterial color="#303d45"/></mesh>}
- </group>;
-}
-function Walker(){return <group position={[0,0,.4]}>
- {[-.28,.28].flatMap(x=>[-.15,.3].map(z=><mesh key={x+','+z} position={[x,.44,z]}><cylinderGeometry args={[.022,.022,.83,6]}/><meshStandardMaterial color="#a4afb5" metalness={.55} roughness={.4}/></mesh>))}
- {[-.28,.28].map(x=><group key={x}><mesh position={[x,.82,.075]} rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.03,.03,.46,6]}/><meshStandardMaterial color="#475b60"/></mesh></group>)}
- <mesh position={[0,.57,.3]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.025,.025,.56,6]}/><meshStandardMaterial color="#a4afb5"/></mesh>
- {[-.28,.28].map(x=><mesh key={x} position={[x,.055,.3]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.065,.065,.04,8]}/><meshStandardMaterial color="#344147"/></mesh>)}
+import {avatarPose} from '@/lib/navigationModel';
+import {STATUS_COLORS as STATUS,OUTFITS} from '@/lib/environmentModel';
+import type {SceneProps,Point3 as Vec3} from '@/types/environment';
+import Label from './HospitalLabel';
+function Segment({at,size,color}:{at:Vec3;size:Vec3;color:string}){return <mesh position={at} castShadow><boxGeometry args={size}/><meshStandardMaterial color={color} roughness={.8}/></mesh>;}
+function Leg({side}:{side:number}){return <group name={'leg'+side} position={[side*.12,.91,0]}>
+ <Segment at={[0,-.19,0]} size={[.135,.38,.16]} color="#485a63"/>
+ <group name={'knee'+side} position={[0,-.39,0]}><Segment at={[0,-.17,0]} size={[.12,.34,.14]} color="#485a63"/><Segment at={[0,-.37,.055]} size={[.17,.12,.3]} color="#37454b"/></group>
  </group>;}
-export default function ResidentAvatar({index,story,selected,reduced,onSelect}:Pick<SceneProps,'story'|'selected'|'reduced'|'onSelect'>&{index:number}){
- const root=useRef<Group>(null);const lastHeading=useRef(0);
- const color=STATUS_COLORS[residentColor(story,index)],r=RESIDENTS[index];
- useFrame((_,delta)=>{const group=root.current;if(!group)return;
-  const pose=avatarPose(story,index,reduced);group.position.set(...pose.position);
-  // Camera/view changes never advance the scripted clock or animate a paused body.
-  if(!frozen(story)&&pose.walking)lastHeading.current=pose.heading;
-  const body=group.getObjectByName('body')!;
-  if(reduced)body.rotation.y=lastHeading.current;
-  else if(!frozen(story))body.rotation.y+=(MathUtils.euclideanModulo(lastHeading.current-body.rotation.y+Math.PI,Math.PI*2)-Math.PI)*(1-Math.exp(-delta*8));
-  const amplitude=reduced||!pose.walking?0:index===5?.17:.32;
-  const gait=Math.sin(pose.phase)*amplitude;
-  for(const side of [-1,1]){const leg=body.getObjectByName('leg'+side),arm=body.getObjectByName('arm'+side);
-   if(leg)leg.rotation.x=gait*side;if(arm)arm.rotation.x=index===5?-.45:-gait*side;}
-  body.position.y=pose.walking&&!reduced?Math.abs(Math.sin(pose.phase))*.025:0;
-  group.userData.pose=[...pose.position];group.userData.color=residentColor(story,index);group.userData.walking=pose.walking;
+function Walker(){return <group name="walker" position={[0,0,.48]}>
+ {[-.3,.3].flatMap(x=>[-.19,.3].map(z=><mesh key={x+','+z} position={[x,.49,z]}><cylinderGeometry args={[.023,.023,.84,8]}/><meshStandardMaterial color="#a6b4bc" metalness={.55} roughness={.3}/></mesh>))}
+ {[-.3,.3].map(x=><group key={x}><mesh position={[x,.9,.045]} rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.035,.035,.48,8]}/><meshStandardMaterial color="#405a62"/></mesh><mesh position={[x,.09,.3]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.085,.085,.055,10]}/><meshStandardMaterial color="#35474f"/></mesh></group>)}
+ {[.5,.7].map(y=><mesh key={y} position={[0,y,.3]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.024,.024,.6,8]}/><meshStandardMaterial color="#a6b4bc" metalness={.4}/></mesh>)}
+ </group>;}
+export default function ResidentAvatar({index,story,reduced,selected,onSelect}:Pick<SceneProps,'story'|'selected'|'reduced'|'onSelect'>&{index:number}){
+ const root=useRef<Group>(null),body=useRef<Group>(null),halo=useRef<Mesh>(null),heading=useRef(0);
+ const r={...RESIDENTS[index],outfit:OUTFITS[index],skin:index%2?'#c59475':'#ddb395'};
+ const old=index===5,status=residentColor(story,index),statusColor=STATUS[status];
+ useFrame((_,delta)=>{const pose=avatarPose(story,index,reduced);const g=root.current!,b=body.current!;
+  g.position.set(...pose.position);
+  if(story.stage==='idle'){heading.current=0;b.rotation.y=0;}
+  if(pose.walking)heading.current=pose.heading;
+  if(!frozen(story)){
+   const difference=MathUtils.euclideanModulo(heading.current-b.rotation.y+Math.PI,Math.PI*2)-Math.PI;
+   b.rotation.y+=difference*(reduced?1:1-Math.exp(-delta*8));
+  }
+  const gait=!pose.walking||reduced?0:Math.sin(pose.phase)*(old?.16:.34);
+  for(const side of [-1,1]){const leg=b.getObjectByName('leg'+side)!,knee=b.getObjectByName('knee'+side)!,arm=b.getObjectByName('arm'+side)!;
+   leg.rotation.x=gait*side;knee.rotation.x=Math.max(0,-gait*side)*.65;arm.rotation.x=old?-.55:-gait*side;}
+  b.getObjectByName('head')!.rotation.y=pose.looking;
+  b.position.y=.06+(pose.walking&&!reduced?Math.abs(Math.sin(pose.phase))*.018:0);
+  const material=halo.current!.material as import('three').MeshBasicMaterial;
+  if(frozen(story))material.color.set(statusColor);else material.color.lerp(new Color(statusColor),reduced?1:1-Math.exp(-delta*3));
+  g.userData.color=status;g.userData.walking=pose.walking;g.userData.pose=[...pose.position];g.userData.looking=pose.looking;
  });
  return <group ref={root} name={'avatar-'+r.id} userData={{residentId:r.id}} onClick={e=>{e.stopPropagation();onSelect(index);}}>
-  <group name="body" scale={index===5?[.96,.96,.96]:[1,1,1]}>
-   <mesh position={[0,1.16,0]} castShadow><boxGeometry args={[.42,.53,.25]}/><meshStandardMaterial color={OUTFITS[index]}/></mesh>
-   <mesh position={[0,.85,0]} castShadow><boxGeometry args={[.34,.18,.23]}/><meshStandardMaterial color="#354954"/></mesh>
-   <mesh position={[0,1.62,.015]} castShadow><sphereGeometry args={[.19,12,10]}/><meshStandardMaterial color={index%2?'#c59475':'#ddb395'}/></mesh>
-   <mesh position={[0,1.73,-.015]}><sphereGeometry args={[.173,10,8,0,Math.PI*2,0,Math.PI/2]}/><meshStandardMaterial color={index===5?'#d4d4ce':index%2?'#493b33':'#5a5048'}/></mesh>
-   <Limb side={-1} kind="leg"/><Limb side={1} kind="leg"/>
-   <Limb side={-1} kind="arm"/><Limb side={1} kind="arm"/>
-   {index===5&&<Walker/>}
+  <group ref={body} name="body">
+   <mesh position={[0,1.18,old?.055:0]} rotation={[old?.09:0,0,0]} castShadow><capsuleGeometry args={[.19,.25,4,10]}/><meshStandardMaterial color={r.outfit} roughness={.85}/></mesh>
+   <Segment at={[0,.91,0]} size={[.32,.18,.22]} color="#485a63"/>
+   <group name="head" position={[0,1.62,old?.07:0]}>
+    <mesh castShadow><sphereGeometry args={[.18,12,10]}/><meshStandardMaterial color={r.skin}/></mesh>
+    <mesh position={[0,.08,-.015]}><sphereGeometry args={[.17,12,8,0,Math.PI*2,0,Math.PI/2]}/><meshStandardMaterial color={old?'#c9cdca':index%2?'#5f5149':'#444749'}/></mesh>
+    <mesh position={[0,0,.174]}><sphereGeometry args={[.028,8,6]}/><meshStandardMaterial color={r.skin}/></mesh>
+    {old&&[-.063,.063].map(x=><mesh key={x} position={[x,.025,.162]}><torusGeometry args={[.044,.008,4,10]}/><meshStandardMaterial color="#596769"/></mesh>)}
+   </group>
+   <Leg side={-1}/><Leg side={1}/>
+   {[-1,1].map(side=><group key={side} name={'arm'+side} position={[side*.235,1.35,old?.03:0]}>
+    <Segment at={[0,-.14,0]} size={[.12,.28,.13]} color={r.outfit}/>
+    <Segment at={[0,-.36,.035]} size={[.1,.2,.1]} color={r.skin}/>
+    <mesh position={[0,-.48,.04]}><sphereGeometry args={[.055,8,6]}/><meshStandardMaterial color={r.skin}/></mesh>
+   </group>)}
+   {old&&<Walker/>}
   </group>
-  <mesh rotation={[-Math.PI/2,0,0]} position={[0,.15,0]}><ringGeometry args={[selected===index?.48:.36,selected===index?.59:.44,24]}/><meshBasicMaterial color={color} transparent opacity={.85}/></mesh>
-  <TextLabel text={r.id} position={[0,2.18,0]} width={1.55} color={color} fixed/>
+  <mesh ref={halo} rotation={[-Math.PI/2,0,0]} position={[0,.17,0]}><ringGeometry args={[selected===index?.51:.37,selected===index?.61:.44,32]}/><meshBasicMaterial color={STATUS.green} transparent opacity={.85} toneMapped={false}/></mesh>
+  {old&&<mesh position={[0,2.65,0]}><cylinderGeometry args={[.012,.012,1.15,4]}/><meshBasicMaterial color={statusColor} transparent opacity={.5}/></mesh>}
+  <Label name="resident-id" text={r.id} at={[0,old?3.35:2.15,0]} fixed color={statusColor}/>
  </group>;
 }

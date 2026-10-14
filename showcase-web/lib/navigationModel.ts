@@ -22,7 +22,7 @@ function spatialPoint(story:Story,index:number,reduced:boolean):Point3 {
   let p = index===5&&!blocked(story) ? r06Choreography(story.elapsed,reduced) : position(story,index,reduced);
   // Keep a modest, stable walking lane offset so co-located residents are inspectable.
   // R06 stays exactly on the main route. This has no effect on recorded locations.
-  p=[p[0],p[1]+(index===5?0:(index%3-1)*12)];
+  p=[p[0],p[1]+([-18,-10,14,-18,20,0,-14,18][index])];
   return toWorld(p);
 }
 export function avatarPose(story:Story,index:number,reduced=false):AvatarPose {
@@ -32,7 +32,7 @@ export function avatarPose(story:Story,index:number,reduced=false):AvatarPose {
   const before=spatialPoint({...story,elapsed:Math.max(0,story.elapsed-.05)},index,false);
   const dx=(moving?next[0]:current[0])-before[0],dz=(moving?next[2]:current[2])-before[2];
   const walking=moving&&Math.hypot(next[0]-spatialPoint(story,index,false)[0],next[2]-spatialPoint(story,index,false)[2])>.001;
-  return {position:current,heading:Math.atan2(dx,dz),walking,phase:story.elapsed*(index===5?5:8)+index};
+  return {position:current,heading:Math.atan2(dx,dz),walking,looking:index===5&&story.stage==='emerging'&&!reduced&&!walking&&!story.paused?Math.sin(story.elapsed*2.8)*.48:0,phase:(index===5&&story.stage==='emerging'?60+(story.elapsed-12)*3.3:story.elapsed*(index===5?5:8))+index};
 }
 
 export function spatialLocation(story:Story,index:number,reduced=false):Place {

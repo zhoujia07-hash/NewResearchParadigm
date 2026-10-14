@@ -792,3 +792,28 @@ The existing application and all frozen V1 references remain unchanged.
 ![V2.1-A blocked East Exit](prototypes/v2.1-a/previews/04-east-exit-blocked.png)
 
 **Visual prototype only — scientific logic integration will be completed later.**
+
+## V2.1-B — integrated Modern Hospital (review branch)
+
+The approved V2.1-A Modern Hospital and articulated avatars are integrated into
+the existing Showcase on `v2.1-b-integration`, based exactly on
+`e9a72b9a87b91b010911dafe2117bcac908a0457`. This is awaiting human visual review;
+main, production and the permanent V1 checkpoint are not promoted or changed.
+
+[Integration architecture, validation and all nine screenshots](V2_1_B_INTEGRATION.md)
+
+`showcase-web/lib/story.ts` remains the unchanged scientific source of truth.
+The standalone prototype's 48-second visual clock does not drive this app.
+Default 3D, retained shared-state 2D, Overview / Follow R06, mesh/ID selection,
+and the original A/B/C takeover and outcomes are available. No new dependencies,
+trait models or inference runtime are introduced.
+
+3D avatar behavior is a scripted visualization of the prototype state machine
+and is not an empirically validated model of human navigation.
+97.5% is a scripted prototype result, not a real-world automation estimate.
+
+![V2.1-B Modern Hospital overview](screenshots/33-v2-1-b-integrated-overview.png)
+
+![V2.1-B frozen scene and human takeover](screenshots/37-v2-1-b-human-takeover.png)
+
+![V2.1-B A/85 West Exit result](screenshots/39-v2-1-b-recovery-west-exit.png)
