@@ -845,3 +845,14 @@ Crossref access was blocked here, so independent content verification remains
 pending. Source-linked concepts are not validated models or predictors. This
 framework does not control the existing Showcase, and no empirical or adaptive
 model is added.
+
+## V2.2-B synthetic Human model review
+
+On the `v2.2-b-human-models` review branch, deterministic synthetic profiles add
+person-specific meso → macro expressions in the unchanged Modern Hospital.
+These are illustrative, replaceable parameters, not participant measurements or
+validated effect estimates. The official R06 story and Machine decisions remain
+scripted and unchanged.
+
+See [V2.2-B Human models, exact mappings and review screenshots](V2_2_B_HUMAN_MODELS.md).
+This stage awaits human scientific and visual review and is not merged to main.

@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
     "test:browser": "node tests/browser.cjs",
-    "test:browser:3d": "node tests/browser-3d.cjs"
+    "test:browser:3d": "node tests/browser-3d.cjs",
+    "test:browser:human": "node tests/browser-human.cjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.1",

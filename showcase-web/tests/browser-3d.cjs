@@ -50,7 +50,11 @@ const out=path.resolve(__dirname,'../../screenshots');
   if(Math.abs(d)<.003)held++;if(Math.abs((await r06()).looking)>.1)looked=true;
  }
  assert.equal(negativeRuns,2);assert.ok(held>0);assert.ok(looked,'head looks around during emerging hesitation');
- await state('crisis');assert.equal((await r06()).color,'red');assert.equal(await canvas().getAttribute('data-blocked'),'true');
+ await state('crisis');
+ // React stage DOM and the WebGL frame commit asynchronously. Wait for the
+ // actual rendered red/block state, then retain all original assertions.
+ await page.waitForFunction(()=>{const c=document.querySelector('canvas[data-rendered=true]');return c?.dataset.blocked==='true'&&JSON.parse(c.dataset.avatars||'[]').find(a=>a.id==='R06')?.color==='red';},{},{timeout:5000});
+ assert.equal((await r06()).color,'red');assert.equal(await canvas().getAttribute('data-blocked'),'true');
  const crisis=await scenePositions();await page.waitForTimeout(800);assert.deepEqual(await scenePositions(),crisis);
  await shot('36-v2-1-b-east-exit-blocked.png');
  await state('human');assert.deepEqual((await avatars()).map(a=>a.uuid),identities);await page.getByRole('heading',{name:'Choose the next step for R06.',exact:true}).waitFor();

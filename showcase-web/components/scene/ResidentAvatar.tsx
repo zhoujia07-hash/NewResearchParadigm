@@ -3,7 +3,7 @@ import {useRef} from 'react';
 import {useFrame} from '@react-three/fiber';
 import {Group,Mesh,Color,MathUtils} from 'three';
 import {RESIDENTS,frozen,residentColor} from '@/lib/story';
-import {avatarPose} from '@/lib/navigationModel';
+import {humanMotionPose,residentBehaviorStyle} from '@/presentation/humanMotion';
 import {STATUS_COLORS as STATUS,OUTFITS} from '@/lib/environmentModel';
 import type {SceneProps,Point3 as Vec3} from '@/types/environment';
 import Label from './HospitalLabel';
@@ -20,14 +20,15 @@ function Walker(){return <group name="walker" position={[0,0,.48]}>
 export default function ResidentAvatar({index,story,reduced,selected,onSelect}:Pick<SceneProps,'story'|'selected'|'reduced'|'onSelect'>&{index:number}){
  const root=useRef<Group>(null),body=useRef<Group>(null),halo=useRef<Mesh>(null),heading=useRef(0);
  const r={...RESIDENTS[index],outfit:OUTFITS[index],skin:index%2?'#c59475':'#ddb395'};
+ const style=residentBehaviorStyle(story,index);
  const old=index===5,status=residentColor(story,index),statusColor=STATUS[status];
- useFrame((_,delta)=>{const pose=avatarPose(story,index,reduced);const g=root.current!,b=body.current!;
+ useFrame((_,delta)=>{const pose=humanMotionPose(story,index,reduced,style);const g=root.current!,b=body.current!;
   g.position.set(...pose.position);
   if(story.stage==='idle'){heading.current=0;b.rotation.y=0;}
   if(pose.walking)heading.current=pose.heading;
   if(!frozen(story)){
    const difference=MathUtils.euclideanModulo(heading.current-b.rotation.y+Math.PI,Math.PI*2)-Math.PI;
-   b.rotation.y+=difference*(reduced?1:1-Math.exp(-delta*8));
+   b.rotation.y+=difference*(reduced?1:1-Math.exp(-delta*(4+4*style.turnDecisiveness)));
   }
   const gait=!pose.walking||reduced?0:Math.sin(pose.phase)*(old?.16:.34);
   for(const side of [-1,1]){const leg=b.getObjectByName('leg'+side)!,knee=b.getObjectByName('knee'+side)!,arm=b.getObjectByName('arm'+side)!;

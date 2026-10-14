@@ -5,7 +5,8 @@ import {legacyStoryAdapter} from '@/compatibility/legacyStoryAdapter';
 import {presentHuman} from '@/presentation/adapters/humanPresentation';
 import {presentEnvironment} from '@/presentation/adapters/environmentPresentation';
 import {presentMachine} from '@/presentation/adapters/machinePresentation';
-import {spatialLocation} from '@/lib/navigationModel';
+import {humanMotionLocation} from '@/presentation/humanMotion';
+import {presentHumanNavigation} from '@/presentation/adapters/humanNavigationPresentation';
 import type {ViewMode} from '@/types/environment';
 import SceneViewport from '@/components/scene/SceneViewport';
 import ResidentProfile from '@/components/panels/ResidentProfile';
@@ -20,7 +21,8 @@ export default function Page(){
  const [view,setView]=useState<ViewMode>('3d');
  const snapshot=useMemo(()=>legacyStoryAdapter.snapshot(story),[story]);
  const environmentView=presentEnvironment(snapshot),machineView=presentMachine(snapshot);
- const humanView=presentHuman(snapshot,selected,view==='3d'?spatialLocation(story,selected,reduced):undefined);
+ const humanView=presentHuman(snapshot,selected,view==='3d'?humanMotionLocation(story,selected,reduced):undefined);
+ const navigationView=presentHumanNavigation(story,selected,reduced);
  const last=useRef<number|null>(null);
  useEffect(()=>{const media=matchMedia('(prefers-reduced-motion: reduce)');
   const update=()=>setReduced(media.matches);update();media.addEventListener('change',update);
@@ -45,13 +47,13 @@ export default function Page(){
     <section className="experience" aria-label="Guided simulation">
       <StoryControls story={story} onStart={()=>restart(true)} onPause={pauseResume} onSkip={()=>restart(false,true)} onReset={()=>restart()}/>
       <div className="stage-layout">
-      <div className="workspace"><SceneViewport story={environmentView.story} selected={selected} reduced={reduced} onSelect={setSelected} view={view} onView={setView}/><ResidentProfile presentation={humanView}/></div>
+      <div className="workspace"><SceneViewport story={environmentView.story} selected={selected} reduced={reduced} onSelect={setSelected} view={view} onView={setView}/><ResidentProfile presentation={humanView} navigation={navigationView}/></div>
       <HumanDecision story={story} choice={choice} confidence={confidence} onChoice={setChoice} onConfidence={setConfidence} onSubmit={decide}/>
       </div>
       <SystemStatus presentation={machineView}/>
       <CollaborationResult presentation={machineView}/>
     </section>
-    <p className="spatial-caution">3D avatar behavior in V2.1 is a scripted visualization of the existing prototype logic, not an empirically validated human navigation model.</p>
+    <p className="spatial-caution">V2.2-B adds synthetic person-specific motion styles to the scripted prototype. Profiles and behavior mappings are illustrative, replaceable and not empirically validated; R06’s official crisis and decisions remain scripted.</p>
     <footer><p><b>Simulated demonstration.</b> No real human behavioral evidence, validated AI superiority or validated Concordia behavior is implied.</p><p>Session-only experience · No API calls, account or participant data collection</p></footer>
  </main>;
 }

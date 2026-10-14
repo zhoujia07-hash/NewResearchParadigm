@@ -177,9 +177,10 @@ function runtimeImports(entry:string,seen=new Set<string>()):Set<string>{
 test('Evidence catalogs, research hypotheses and new composition engine do not control the current public runtime',()=>{
   const imports=runtimeImports('app/page.tsx');
   for(const path of imports)assert.doesNotMatch(path,/scientificSources\.ts|navigationEvidence\.ts|navigationFactorRegistry\.ts|navigationHypotheses\.ts|couplingEngine\.ts/);
-  for(const path of ['app/page.tsx','components/panels/ResidentProfile.tsx','components/panels/SystemStatus.tsx','components/panels/CollaborationResult.tsx'])
+  // V2.2-B authorizes Human presentation changes; Machine/report remain protected.
+  for(const path of ['components/panels/SystemStatus.tsx','components/panels/CollaborationResult.tsx'])
     assert.deepEqual(readFileSync(path),execFileSync('git',['show',`7292b534c0a17d760b5554a192c3d166d86dfc9f:showcase-web/${path}`]));
-  for(const name of readdirSync('components/scene'))assert.deepEqual(readFileSync(join('components/scene',name)),
+  for(const name of readdirSync('components/scene').filter(n=>!['ResidentAvatar.tsx','SceneViewport.tsx'].includes(n)))assert.deepEqual(readFileSync(join('components/scene',name)),
     execFileSync('git',['show',`7292b534c0a17d760b5554a192c3d166d86dfc9f:showcase-web/components/scene/${name}`]));
   assert.deepEqual(readFileSync('lib/story.ts'),execFileSync('git',['show','8ebddca5ec84b3fc29e789febc800fc5bdc2bdc0:showcase-web/lib/story.ts']));
   for(const choice of ['A','B','C'] as const){const story=tick(submit(skipStory(),choice,85),20);assert.deepEqual([story.total,story.automatic,story.escalations],[40,39,1]);}
