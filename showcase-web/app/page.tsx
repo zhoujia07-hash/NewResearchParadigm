@@ -42,6 +42,7 @@ export default function Page(){
       <h1>New Research Paradigm</h1>
       <p className="subtitle">AI High-Throughput Simulation <span>+</span> Human Long-Tail Intervention</p>
       <p className="intro-text">This is a simplified indoor navigation environment representing a large public building such as a hospital.</p>
+      <a className="research-comparison-link" href="/environment-comparison">Compare Simple vs Complex environments →</a>
       <div className="pipeline" aria-label="Collaboration pipeline"><span>01 <b>AI Sandbox</b></span><i>→</i><span>02 <b>Triage</b></span><i>→</i><span>03 <b>Human Takeover</b></span><i>→</i><span>04 <b>Hybrid Decision</b></span></div>
     </section>
     <section className="experience" aria-label="Guided simulation">

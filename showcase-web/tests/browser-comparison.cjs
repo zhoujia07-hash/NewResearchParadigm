@@ -1,0 +1,57 @@
+/* Real-browser controlled experiment verification. One real shared clock, no injected timeline. */
+const {chromium}=require('playwright');const assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path');
+const base=process.env.SHOWCASE_URL||'http://127.0.0.1:3000',url=base+'/environment-comparison',out=path.resolve(__dirname,'../../screenshots');
+(async()=>{
+ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+ const context=await browser.newContext({viewport:{width:1440,height:1200}}),page=await context.newPage();const errors=[],requests=[];
+ const observe=p=>{p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});p.on('request',r=>requests.push(r.url()));};observe(page);
+ const card=id=>page.locator(`[data-environment=${id}]`),shot=async name=>{await page.screenshot({path:path.join(out,name),fullPage:true});};
+ const ready=async()=>{await page.locator('canvas[data-network=simple][data-rendered=true]').waitFor({timeout:30000});await page.locator('canvas[data-network=complex][data-rendered=true]').waitFor({timeout:30000});};
+ const position=async id=>JSON.parse(await card(id).locator('canvas').getAttribute('data-position'));
+ fs.mkdirSync(out,{recursive:true});await page.goto(base,{waitUntil:'networkidle'});await page.getByRole('link',{name:'Compare Simple vs Complex environments →',exact:true}).click();await ready();
+ assert.equal(await page.getByRole('combobox',{name:/Shared Human/}).inputValue(),'R04');assert.equal(await page.locator('article[data-resident=R04]').count(),2);
+ await page.getByText('Human profile, task, and baseline support are held constant. Only the synthetic environmental structure differs.',{exact:true}).waitFor();
+ for(const id of ['simple','complex'])assert.ok(await card(id).locator('canvas').evaluate(c=>{const gl=c.getContext('webgl2'),b=new Uint8Array(32*32*4);gl.readPixels(c.width/2-16,c.height/2-16,32,32,gl.RGBA,gl.UNSIGNED_BYTE,b);return new Set(b).size>10;}),'empty WebGL scene '+id);
+ assert.equal(await card('simple').locator('[data-global=Nodes]').innerText(),'9');assert.equal(await card('complex').locator('[data-global=Nodes]').innerText(),'21');
+ assert.equal(await card('simple').locator('[data-global="Decision points"]').innerText(),'2');assert.equal(await card('complex').locator('[data-global="Decision points"]').innerText(),'9');
+ assert.notEqual(await card('simple').locator('[data-response=scanning]').innerText(),await card('complex').locator('[data-response=scanning]').innerText());
+ await shot('67-v2-2-c-simple-vs-complex.png');await card('simple').screenshot({path:path.join(out,'68-v2-2-c-simple-network.png')});await card('complex').screenshot({path:path.join(out,'69-v2-2-c-complex-network.png')});
+ const profile=await page.locator('.shared-human dl').innerText(),upcoming=await card('complex').locator('[data-local=upcoming]').innerText();
+ const graph=await card('complex').locator('[data-graph]').getAttribute('data-position'),a=await position('simple'),b=await position('complex');
+ await page.getByRole('button',{name:'Start',exact:true}).click();await page.waitForFunction(()=>Number(document.querySelector('main').dataset.sharedTime)>2);
+ assert.notDeepEqual(await position('simple'),a);assert.notDeepEqual(await position('complex'),b);await shot('70-v2-2-c-live-comparison-early.png');
+ await page.waitForFunction(()=>Number(document.querySelector('main').dataset.sharedTime)>7);
+ await page.waitForFunction(()=>{const a=document.querySelector('[data-environment=simple]'),b=document.querySelector('[data-environment=complex]');return a.dataset.experimentTime===b.dataset.experimentTime&&a.querySelector('canvas').dataset.experimentTime===b.querySelector('canvas').dataset.experimentTime;});
+ assert.notEqual(await card('complex').locator('[data-local=upcoming]').innerText(),upcoming);assert.notEqual(await card('complex').locator('[data-graph]').getAttribute('data-position'),graph);
+ assert.equal(await page.locator('.shared-human dl').innerText(),profile);await shot('71-v2-2-c-live-comparison-junction.png');
+ await page.getByRole('button',{name:'Pause',exact:true}).click();await page.waitForTimeout(250);
+ const pausedTime=await page.locator('main').getAttribute('data-shared-time'),paused=[await position('simple'),await position('complex')];await page.waitForTimeout(700);
+ assert.equal(await page.locator('main').getAttribute('data-shared-time'),pausedTime);assert.deepEqual([await position('simple'),await position('complex')],paused);
+ assert.equal(await card('simple').getAttribute('data-experiment-time'),await card('complex').getAttribute('data-experiment-time'));const localBoxes=await page.locator('.comparison-live').evaluateAll(els=>els.map(el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};}));
+ const left=Math.min(...localBoxes.map(b=>b.x)),top=Math.min(...localBoxes.map(b=>b.y)),right=Math.max(...localBoxes.map(b=>b.x+b.width)),bottom=Math.max(...localBoxes.map(b=>b.y+b.height));
+ await page.screenshot({path:path.join(out,'72-v2-2-c-live-local-demand.png'),clip:{x:left,y:top,width:right-left,height:bottom-top}});
+ await page.getByRole('button',{name:'Resume',exact:true}).click();await page.waitForFunction(t=>Number(document.querySelector('main').dataset.sharedTime)>Number(t)+.5,pausedTime);
+ await page.getByRole('button',{name:'Reset',exact:true}).click();await page.waitForTimeout(200);
+ assert.equal(await page.locator('main').getAttribute('data-shared-time'),'0.000');assert.deepEqual(await position('simple'),[-18,0]);assert.deepEqual(await position('complex'),[-18,0]);
+ for(const id of ['R01','R06','R08']){await page.getByRole('combobox',{name:/Shared Human/}).selectOption(id);await page.waitForFunction(id=>[...document.querySelectorAll('canvas')].every(c=>c.dataset.resident===id),id);assert.equal(await page.locator(`article[data-resident=${id}]`).count(),2);if(id==='R01'){await page.getByRole('button',{name:'Start',exact:true}).click();await page.waitForTimeout(1200);await shot('73-v2-2-c-same-human-different-environment.png');await page.getByRole('button',{name:'Reset',exact:true}).click();}}
+ await page.getByRole('combobox',{name:/Shared Human/}).selectOption('R04');
+ await page.getByRole('button',{name:'Start',exact:true}).click();
+ await page.waitForFunction(()=>[...document.querySelectorAll('[data-behavior]')].every(el=>el.textContent==='Destination reached'),{},{timeout:45000});
+ await page.waitForFunction(()=>document.querySelector('main').dataset.experimentRunning==='false');
+ await page.waitForTimeout(150);assert.deepEqual(await position('simple'),[18,0]);assert.deepEqual(await position('complex'),[18,0]);
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await page.locator('.takeover,.report,[data-factor]').count(),0);
+ console.log('PASS paired WebGL pixels, same R04/profile/task/support, distinct structure and expression, live context/graphs, synchronized Start/Pause/Resume/Reset, resident selection.');
+ const mobileContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce'}),mobile=await mobileContext.newPage();observe(mobile);await mobile.goto(url,{waitUntil:'networkidle'});
+ await mobile.locator('canvas[data-network=complex][data-rendered=true]').waitFor({timeout:30000});await mobile.waitForFunction(()=>document.querySelector('main').dataset.reducedMotion==='true');
+ const simpleBox=await mobile.locator('[data-environment=simple]').boundingBox(),complexBox=await mobile.locator('[data-environment=complex]').boundingBox();assert.ok(complexBox.y>=simpleBox.y+simpleBox.height);
+ assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await mobile.screenshot({path:path.join(out,'74-v2-2-c-mobile-comparison.png'),fullPage:true});
+ await mobile.getByRole('button',{name:'Start',exact:true}).tap();await mobile.waitForTimeout(1000);assert.ok((await mobile.locator('canvas').evaluateAll(cs=>cs.map(c=>Number(c.dataset.scanning)))).every(v=>v===0));
+ await mobile.getByRole('button',{name:'Pause',exact:true}).tap();await mobile.getByRole('combobox',{name:/Shared Human/}).selectOption('R06');assert.equal(await mobile.locator('article[data-resident=R06]').count(),2);
+ // No WebGL leaves both graphs and the single experiment clock functional.
+ const fallback=await context.newPage();observe(fallback);await fallback.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl2'?null:original.call(this,type,...args);};});
+ await fallback.goto(url,{waitUntil:'networkidle'});assert.equal(await fallback.locator('[data-graph]').count(),2);await fallback.getByRole('button',{name:'Start',exact:true}).click();
+ await fallback.waitForTimeout(600);assert.ok(Number(await fallback.locator('main').getAttribute('data-shared-time'))>0);
+ assert.ok(requests.every(u=>new URL(u).origin===new URL(base).origin),'external runtime request');assert.deepEqual(errors,[]);
+ console.log('PASS stacked mobile, reduced motion, no overflow, functional graph fallback, no console errors or external runtime requests.');await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -856,3 +856,14 @@ scripted and unchanged.
 
 See [V2.2-B Human models, exact mappings and review screenshots](V2_2_B_HUMAN_MODELS.md).
 This stage awaits human scientific and visual review and is not merged to main.
+
+## V2.2-C controlled Environment comparison (review branch)
+
+Open `/environment-comparison` from the “Compare Simple vs Complex environments”
+link on the Showcase. The separate research demo runs two synthetic hospital route
+networks together, with the same selected Human, task, baseline support and clock.
+Raw structural variables and illustrative H×E expressions are shown separately.
+
+See [controlled Simple-vs-Complex comparison, exact networks and screenshots](V2_2_C_ENVIRONMENT_MODELS.md).
+The original R06 story remains separate. Results are synthetic demonstrations,
+not empirical evidence; this branch awaits scientific and visual review.

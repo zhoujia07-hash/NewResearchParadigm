@@ -25,6 +25,9 @@ const out=path.resolve(__dirname,'../../screenshots');
  const identities=(await avatars()).map(a=>a.uuid);
  await page.waitForTimeout(600);await shot('33-v2-1-b-integrated-overview.png');
  await page.getByRole('button',{name:'Select R02',exact:true}).click();
+ // The navigation entry can move the scene below the initial viewport.
+ // Scroll before converting the actual projected mesh position into a click.
+ await canvas().scrollIntoViewIfNeeded();
  const b=await canvas().boundingBox(),screen=(await r06()).screen;
  await page.mouse.click(b.x+(screen[0]+1)*b.width/2,b.y+(1-screen[1])*b.height/2);
  await page.locator('.profile-id').getByText('R06',{exact:true}).waitFor();
