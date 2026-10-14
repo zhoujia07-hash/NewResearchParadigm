@@ -766,3 +766,29 @@ this is an intermediate main commit, not a new `showcase-v2` checkpoint.
 ![V2.1 retained 2D fallback](screenshots/31-v2-1-2d-fallback.png)
 
 ![V2.1 mobile 3D](screenshots/32-v2-1-mobile.png)
+
+## V2.1-A — Standalone 3D Visual Prototype
+
+A separate [design and handoff package](prototypes/v2.1-a/README.md) explores a more
+polished hospital cutaway, articulated residents, R06's walker / hesitation /
+backtracking, dynamic East Exit blockage and overview / follow cameras. It includes
+three material variants, a scrubbable visual storyboard and six captured renders.
+The prebuilt static viewer is at `/visual-prototype/index.html` after deployment;
+its source and visual clock are independent of the existing scientific application.
+No research logic, backend, empirical human model or intervention policy is added.
+
+[Download the self-contained prototype ZIP](showcase-web/public/visual-prototype/v2.1-a-package.zip).
+Extract and serve its `browser/` directory with any static host; source, build files,
+asset manifest, design rationale, storyboard, palettes and third-party notices are
+included. No API key, login, database or external runtime asset is required.
+The existing application and all frozen V1 references remain unchanged.
+
+![V2.1-A overview](prototypes/v2.1-a/previews/01-overview.png)
+
+![V2.1-A follow R06](prototypes/v2.1-a/previews/02-follow-r06.png)
+
+![V2.1-A uncertainty](prototypes/v2.1-a/previews/03-uncertainty.png)
+
+![V2.1-A blocked East Exit](prototypes/v2.1-a/previews/04-east-exit-blocked.png)
+
+**Visual prototype only — scientific logic integration will be completed later.**

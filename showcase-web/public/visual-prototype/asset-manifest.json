@@ -1,0 +1,21 @@
+{
+  "project": "New Research Paradigm",
+  "stage": "V2.1-A — 3D Visual Prototype Only",
+  "purpose": "Procedural spatial and motion design handoff",
+  "scientificIntegration": false,
+  "empiricalHumanModel": false,
+  "backendRequired": false,
+  "persistentData": false,
+  "externalRuntimeAssets": [],
+  "geometry": "Project-authored procedural Three.js primitives",
+  "cameraModes": ["overview", "follow-R06"],
+  "residentIds": ["R01","R02","R03","R04","R05","R06","R07","R08"],
+  "R06": {"appearance":"Older adult with grey hair, glasses and walker","behaviorSource":"Hand-authored visual keyframes"},
+  "locations": ["Entrance","North Atrium","Junction A","Junction B","West Corridor","East Corridor","West Exit","East Exit","Refuge Point"],
+  "variants": ["Modern hospital","Medical center","Care facility"],
+  "visualDurationSeconds": 48,
+  "blockageVisualTime": 34,
+  "criticalVisualTime": 40,
+  "previewImages": ["01-overview.png","02-follow-r06.png","03-uncertainty.png","04-east-exit-blocked.png","05-medical-center.png","06-care-facility.png"],
+  "boundaryLabel": "Visual prototype only — scientific logic integration will be completed later."
+}

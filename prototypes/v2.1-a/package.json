@@ -1,0 +1,10 @@
+{
+ "name":"new-research-paradigm-visual-prototype",
+ "version":"0.1.0",
+ "private":true,
+ "description":"V2.1-A visual-only hospital navigation design study",
+ "engines":{"node":">=20.9.0"},
+ "scripts":{"build":"node build.mjs","typecheck":"tsc --noEmit","test:browser":"node verify-browser.cjs"},
+ "dependencies":{"react":"19.3.0","react-dom":"19.3.0","three":"0.186.1","@react-three/fiber":"9.8.1"},
+ "devDependencies":{"typescript":"^5.9.0","@types/react":"^19.0.0","@types/react-dom":"^19.0.0","@types/three":"0.186.0","esbuild":"0.28.2","playwright":"^1.58.0"}
+}
